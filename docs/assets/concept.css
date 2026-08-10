@@ -1,0 +1,344 @@
+/* 자동 생성 — 인쇄본 원리 페이지 디자인을 웹에서 재사용 */
+:root{--teal:#0E8F86; --teal-d:#0A6E67; --teal-l:#E4F4F2;
+  --navy:#14384E; --coral:#E76F51; --sand:#F7F3EA;
+  --line:#C9DAD8; --gray:#6B8390;}
+.paper .page{width:210mm; height:297mm; position:relative; overflow:hidden;
+        page-break-after:always; background:#fff;}
+.paper .page:last-child{page-break-after:auto;}
+.paper /* ── 표지 ─────────────────────────────── */
+.cover{background:var(--navy); color:#fff;}
+.paper .cvbg{position:absolute; inset:0;
+  background:
+    radial-gradient(circle at 88% 12%, rgba(14,143,134,.85) 0 120mm, transparent 120mm),
+    radial-gradient(circle at 8% 92%, rgba(231,111,81,.55) 0 80mm, transparent 80mm);}
+.paper .cvinner{position:relative; padding:38mm 24mm; height:100%; display:flex; flex-direction:column;}
+.paper .cvtag{font-size:11pt; letter-spacing:.22em; color:#9FE3DC; font-weight:600;}
+.paper .cvtitle{font-size:44pt; line-height:1.18; margin-top:9mm; font-weight:900; letter-spacing:-.02em;}
+.paper .cvtitle span{color:#7FD9D0;}
+.paper .cvline{width:34mm; height:2.4mm; background:var(--coral); margin:9mm 0 7mm; border-radius:2mm;}
+.paper .cvsub{font-size:16pt; font-weight:700; color:#DCEFEC;}
+.paper .cvdesc{margin-top:6mm; font-size:11.5pt; line-height:1.85; color:#B6CEDA;}
+.paper .cvname{margin-top:auto; background:rgba(255,255,255,.09); border:1px solid rgba(255,255,255,.22);
+          border-radius:4mm; padding:9mm 10mm;}
+.paper .cvnrow{display:flex; align-items:center; gap:6mm; margin-bottom:7mm; font-size:12pt;}
+.paper .cvnrow:last-child{margin-bottom:0;}
+.paper .cvnrow span{width:22mm; color:#9FE3DC; font-weight:600;}
+.paper .cvnrow i{flex:1; border-bottom:1.2px solid rgba(255,255,255,.42); height:7mm;}
+.paper /* ── 목차 ─────────────────────────────── */
+.toc{padding:15mm 16mm;}
+.paper .tochead h2{font-size:22pt; color:var(--navy); font-weight:900;}
+.paper .tochead p{margin-top:3mm; font-size:10.5pt; color:var(--gray); line-height:1.7;}
+.paper .toctab{width:100%; border-collapse:collapse; margin-top:6mm; font-size:9.5pt;}
+.paper .toctab th,.paper .toctab td{border-bottom:1px solid var(--line); padding:2.3mm 2.2mm; vertical-align:middle;}
+.paper .tochdr th{background:var(--navy); color:#fff; font-size:9.5pt; font-weight:700; border:none;}
+.paper .tno{width:14mm; text-align:center; font-weight:800; color:var(--teal);}
+.paper .tti{width:52mm; font-weight:700; color:var(--navy);}
+.paper .ttag{width:22mm; text-align:center;}
+.paper .ttag{color:var(--coral); font-weight:700; font-size:8.5pt;}
+.paper .tgoal{color:#4A6472; line-height:1.55; font-size:9pt;}
+.paper .howto{margin-top:6mm;}
+.paper .howto h3{font-size:13pt; color:var(--navy); font-weight:800; margin-bottom:5mm;
+            padding-left:4mm; border-left:2mm solid var(--teal);}
+.paper .howgrid{display:grid; grid-template-columns:1fr 1fr; gap:4mm;}
+.paper .howcard{background:var(--teal-l); border-radius:3mm; padding:3.4mm; display:flex; gap:3mm;}
+.paper .hnum{width:8mm; height:8mm; flex:none; border-radius:50%; background:var(--teal); color:#fff;
+        display:flex; align-items:center; justify-content:center; font-weight:800; font-size:10pt;}
+.paper .htxt{font-size:9pt; line-height:1.65; color:#20505A;}
+.paper .howwarn{margin-top:4mm; background:#FDF0EC; border:1px solid #F3C9BC; border-radius:3mm;
+           padding:3.6mm 5mm; font-size:9pt; color:#9C4028; line-height:1.55;}
+.paper /* ── 회차 표지 ─────────────────────────── */
+.stepcover{padding:0;}
+.paper .scnum{position:absolute; right:14mm; top:10mm; font-size:110pt; font-weight:900;
+         color:var(--teal-l); letter-spacing:-.04em;}
+.paper .scwrap{position:relative; padding:34mm 20mm 0;}
+.paper .sctag{display:inline-block; background:var(--coral); color:#fff; font-size:9.5pt; font-weight:700;
+         padding:1.6mm 5mm; border-radius:10mm; letter-spacing:.05em;}
+.paper .sctitle{font-size:30pt; font-weight:900; color:var(--navy); margin-top:6mm; letter-spacing:-.02em;}
+.paper .scgoal{margin-top:7mm; background:var(--teal-l); border-left:2.6mm solid var(--teal);
+          border-radius:0 3mm 3mm 0; padding:5.5mm 6mm; font-size:10.5pt; line-height:1.7; color:#1C4B52;}
+.paper .scgoal span{display:block; font-size:8.5pt; font-weight:800; color:var(--teal-d);
+               letter-spacing:.14em; margin-bottom:2mm;}
+.paper .record{position:absolute; left:20mm; right:20mm; bottom:24mm;}
+.paper .rechead{font-size:12pt; font-weight:800; color:var(--navy); margin-bottom:5mm;
+           padding-left:3.5mm; border-left:2mm solid var(--teal);}
+.paper .recgrid{display:grid; grid-template-columns:1fr 1fr 1fr; gap:4mm;}
+.paper .rcol{border:1.2px solid var(--line); border-radius:3mm; overflow:hidden;}
+.paper .rday{background:var(--teal); color:#fff; text-align:center; font-weight:800; font-size:10pt; padding:2.6mm;}
+.paper .rcell,.paper .rface{display:flex; align-items:center; border-top:1px solid #E8F0EF; padding:0 3mm; height:11mm;}
+.paper .rcell span,.paper .rface span{font-size:8pt; color:var(--gray); width:20mm; flex:none;}
+.paper .rcell i,.paper .rface i{flex:1; border-bottom:1px dotted #B9CBC9; height:6mm;}
+.paper .rface{background:#FAFCFC; height:13mm;}
+.paper .recnote{margin-top:4mm; font-size:8.5pt; color:var(--gray); text-align:center; line-height:1.6;}
+.paper /* ── 원리 페이지 ───────────────────────── */
+.concept{padding:0;}
+.paper .cpwrap{height:100%; display:flex; flex-direction:column;}
+.paper .cphead{background:var(--navy); color:#fff; padding:12mm 17mm 9mm; position:relative;}
+.paper .cpkey{display:inline-block; background:var(--coral); font-size:9pt; font-weight:800;
+         padding:1.4mm 4.5mm; border-radius:8mm; letter-spacing:.1em;}
+.paper .cptitle{font-size:21pt; font-weight:900; margin-top:3.5mm; letter-spacing:-.02em;}
+.paper .cpsub{font-size:10pt; color:#9FE3DC; margin-top:2.5mm;}
+.paper .cpbody{flex:1; padding:7mm 17mm 0;}
+.paper .csec{margin-bottom:5.4mm;}
+.paper .csec h3{font-size:11.5pt; font-weight:800; color:var(--navy); display:flex; align-items:center;
+           gap:2.5mm; margin-bottom:3mm;}
+.paper .csec h3 b{color:var(--teal-d);}
+.paper .dot{width:3mm; height:3mm; border-radius:50%; background:var(--teal); flex:none;}
+.paper .csec p{font-size:9.3pt; line-height:1.72; color:#3D5866; margin-bottom:3.2mm;}
+.paper .csec p b{color:var(--teal-d); font-weight:700;}
+.paper .cptip{margin:0 17mm 10mm; background:var(--sand); border:1px solid #E5DCC8; border-radius:3mm;
+         padding:4mm 5mm; font-size:8.6pt; line-height:1.7; color:#6B5A38;}
+.paper .tiplab{display:block; font-weight:800; color:#A07A2C; font-size:8.5pt; letter-spacing:.1em; margin-bottom:2mm;}
+.paper .cptip b{color:#8A5A18;}
+.paper /* 쪼개기 박스 */
+.splitbox{background:var(--teal-l); border-radius:4mm; padding:4.6mm; text-align:center;}
+.paper .sbig{font-size:20pt; font-weight:900; color:var(--navy);}
+.paper .sarrow{font-size:8.5pt; color:var(--teal-d); font-weight:700; margin:3mm 0;}
+.paper .sarrow::before{content:'▼ ';}
+.paper .spair{display:flex; align-items:center; justify-content:center; gap:4mm;}
+.paper .scard{background:#fff; border:1.4px solid var(--teal); border-radius:3mm; padding:3.5mm 5mm; min-width:28mm;}
+.paper .sc1{font-size:11pt; font-weight:700; color:#3D5866;}
+.paper .sc2{font-size:14pt; font-weight:900; color:var(--teal-d); margin-top:1mm;}
+.paper .splus{font-size:16pt; font-weight:900; color:var(--teal-d);}
+.paper .sres{margin-top:3mm; font-size:15pt; font-weight:800; color:var(--navy);}
+.paper .sres b{color:var(--coral); font-size:18pt;}
+.paper /* 세로셈 데모 */
+.vdemo{display:flex; align-items:center; gap:8mm; background:#F7FBFB; border-radius:4mm; padding:4.6mm 6mm;}
+.paper .vdemo.big{padding:5.4mm 6mm;}
+.paper .vnote{font-size:8.8pt; line-height:1.75; color:#3D5866;}
+.paper .vnote > div{margin-bottom:2mm;}
+.paper .vb{display:inline-block; background:var(--teal); color:#fff; font-size:7.5pt; font-weight:700;
+      padding:.6mm 2.4mm; border-radius:1.5mm; margin-right:2mm;}
+.paper .warn{margin-top:3mm; padding-top:3mm; border-top:1px dashed #C9DAD8;}
+.paper .bad{color:#C0392B; font-weight:700;}
+.paper .good{color:var(--teal-d); font-weight:700;}
+.paper /* 이사 박스 */
+.movebox{display:flex; align-items:stretch; gap:3mm; margin-bottom:5mm;}
+.paper .mvstep{flex:1; background:var(--teal-l); border-radius:3mm; padding:4mm; text-align:center;}
+.paper .mvlab{font-size:8pt; font-weight:800; color:var(--teal-d); letter-spacing:.08em;}
+.paper .mvbody{font-size:11.5pt; font-weight:700; color:var(--navy); margin-top:2mm;}
+.paper .mvbody b{color:var(--coral);}
+.paper .mvto{display:flex; align-items:center; font-size:13pt; color:var(--teal); font-weight:900;}
+.paper /* 어림 */
+.guessrow{display:flex; gap:4mm;}
+.paper .gcard{flex:1; border:1.2px solid var(--line); border-radius:3mm; padding:4.5mm; text-align:center;}
+.paper .gq{font-size:13pt; font-weight:800; color:var(--navy);}
+.paper .ga{font-size:9.5pt; color:#4A6472; margin-top:2.5mm; line-height:1.6;}
+.paper .gs{color:var(--teal-d); font-weight:800;}
+.paper .gs.bad{color:#C0392B;}
+.paper /* 순서 */
+.orderrow{display:flex; align-items:center; gap:3mm; margin-bottom:4mm; justify-content:center;}
+.paper .ocard{background:var(--navy); color:#fff; border-radius:2.5mm; padding:2.6mm 5mm;
+         font-size:10pt; font-weight:700; display:flex; align-items:center; gap:2.5mm;}
+.paper .onum{width:5.5mm; height:5.5mm; border-radius:50%; background:var(--coral);
+        display:flex; align-items:center; justify-content:center; font-size:8pt; font-weight:900;}
+.paper .oarrow{color:var(--teal); font-weight:900; font-size:12pt;}
+.paper /* 두 질문 */
+.twoq{display:flex; gap:4mm;}
+.paper .qcard{flex:1; border:1.4px solid var(--teal); border-radius:3.5mm; padding:5mm; background:#F7FBFB;}
+.paper .qcard.alt{border-color:var(--coral); background:#FDF6F3;}
+.paper .qtag{display:inline-block; background:var(--teal); color:#fff; font-size:8pt; font-weight:800;
+        padding:1.2mm 3.5mm; border-radius:6mm;}
+.paper .qcard.alt .qtag{background:var(--coral);}
+.paper .qtxt{font-size:10pt; line-height:1.7; color:#2C4A57; margin-top:3mm;}
+.paper .qpic{font-size:11pt; letter-spacing:.06em; color:var(--teal-d); margin:3.5mm 0; text-align:center;}
+.paper .qcard.alt .qpic{color:var(--coral);}
+.paper .qres{font-size:13pt; font-weight:900; color:var(--navy); text-align:center;}
+.paper .qunit{font-size:9.5pt; color:var(--coral); font-weight:700;}
+.paper /* 수 가족 데모 */
+.famdemo{background:var(--teal-l); border-radius:4mm; padding:5.5mm;}
+.paper .fnums{display:flex; justify-content:center; gap:4mm; margin-bottom:4mm;}
+.paper .fnums span{width:13mm; height:13mm; border-radius:50%; background:#fff; border:1.6px solid var(--teal);
+              display:flex; align-items:center; justify-content:center; font-size:13pt; font-weight:900; color:var(--navy);}
+.paper .fgrid{display:grid; grid-template-columns:1fr 1fr; gap:2.5mm;}
+.paper .fitem{background:#fff; border-radius:2.5mm; padding:3mm; text-align:center;
+         font-size:12pt; font-weight:700; color:#3D5866;}
+.paper .fitem.hi{background:var(--navy); color:#fff; font-weight:900;}
+.paper .fnote{margin-top:4mm; font-size:9pt; color:#3D5866; text-align:center; line-height:1.6;}
+.paper /* 구구단 거꾸로 */
+.revbox{background:#F7FBFB; border-radius:4mm; padding:5.5mm; text-align:center;}
+.paper .rvq{font-size:17pt; font-weight:900; color:var(--navy);}
+.paper .rvarrow{font-size:8.5pt; color:var(--teal-d); font-weight:700; margin:2.5mm 0;}
+.paper .rvarrow::before{content:'▼ ';}
+.paper .rvlist{display:flex; justify-content:center; gap:2.5mm;}
+.paper .rvlist span{background:#fff; border:1.2px solid var(--line); border-radius:2.5mm;
+               padding:2.6mm 3.5mm; font-size:10.5pt; font-weight:700; color:#6B8390;}
+.paper .rvlist .hit{background:var(--coral); border-color:var(--coral); color:#fff; font-weight:900;}
+.paper .rvres{margin-top:3.5mm; font-size:13pt; font-weight:800; color:var(--navy);}
+.paper .rvres b{color:var(--coral); font-size:16pt;}
+.paper .tipline{margin-top:3.5mm; font-size:9.5pt; color:#3D5866; background:var(--teal-l);
+           border-radius:2.5mm; padding:3.5mm 4.5mm; line-height:1.6;}
+.paper .tipline b{color:var(--teal-d);}
+.paper /* 나눗셈 세로 데모 */
+.ddemo{display:flex; align-items:center; gap:8mm; background:#F7FBFB; border-radius:4mm; padding:4.6mm 6mm;}
+.paper .dnote{font-size:9.5pt; line-height:1.9;}
+.paper .dnote .ok{color:var(--teal-d); font-weight:700;}
+.paper .dnote .ng{color:#C0392B; font-weight:700;}
+.paper /* 검산 */
+.checkbox{display:flex; gap:3mm; align-items:stretch;}
+.paper .ckstep{flex:1; background:var(--teal-l); border-radius:3mm; padding:4.5mm; text-align:center;}
+.paper .ckstep.ok{background:#E9F7EF;}
+.paper .cklab{font-size:8pt; font-weight:800; color:var(--teal-d); letter-spacing:.08em;}
+.paper .ckbody{font-size:12pt; font-weight:700; color:var(--navy); margin-top:2mm;}
+.paper .ckbody b{color:var(--coral);}
+.paper .ckto{display:flex; align-items:center; font-size:13pt; color:var(--teal); font-weight:900;}
+.paper /* 규칙 카드 */
+.rulegrid{display:grid; grid-template-columns:1fr 1fr; gap:3.5mm;}
+.paper .rcard{border:1.2px solid var(--line); border-radius:3mm; padding:4mm 4.5mm;}
+.paper .rcard.warn{border-color:#F3C9BC; background:#FDF6F3;}
+.paper .rf{font-size:13pt; font-weight:900; color:var(--navy);}
+.paper .no{font-size:9pt; color:#C0392B; margin-left:2mm;}
+.paper .rex{font-size:10.5pt; color:var(--teal-d); font-weight:700; margin-top:1.5mm;}
+.paper .rwhy{font-size:8.5pt; color:var(--gray); margin-top:1.5mm;}
+.paper /* 단위 카드 */
+.unitcards{display:flex; gap:4mm;}
+.paper .ucard{flex:1; border-radius:3.5mm; padding:5mm; text-align:center;}
+.paper .ucard.t{background:var(--teal-l); border:1.4px solid var(--teal);}
+.paper .ucard.l{background:#FDF6F3; border:1.4px solid var(--coral);}
+.paper .ut1{font-size:10pt; font-weight:800; color:var(--navy); margin-bottom:2.5mm;}
+.paper .ut2{font-size:12.5pt; font-weight:800; color:var(--teal-d); line-height:1.75;}
+.paper .ucard.l .ut2{color:#B0492F;}
+.paper .udemo{display:flex; gap:4mm;}
+.paper .udbox{flex:1; background:#F7FBFB; border-radius:3.5mm; padding:4.5mm; text-align:center;}
+.paper .udlab{font-size:9pt; font-weight:800; color:var(--navy); margin-bottom:3mm;}
+.paper .udnote{font-size:8.5pt; color:#4A6472; margin-top:3mm; line-height:1.6;}
+.paper .udnote b{color:var(--coral);}
+.paper /* □ 가리기 */
+.coverbox{display:flex; gap:3.5mm;}
+.paper .cvcase{flex:1; border:1.3px solid var(--teal); border-radius:3.5mm; padding:4.5mm 4mm; text-align:center; background:#F7FBFB;}
+.paper .cvcase.alt{border-color:var(--coral); background:#FDF6F3;}
+.paper .cvhead{font-size:9pt; font-weight:800; color:var(--navy); min-height:9mm; line-height:1.5;}
+.paper .cvq{font-size:14pt; font-weight:900; color:var(--navy); margin:2.5mm 0;}
+.paper .sqd{display:inline-block; min-width:6.5mm; border:1.4px solid var(--coral); border-radius:1.2mm;
+       color:var(--coral); padding:0 1mm;}
+.paper .cvsay{font-size:8.5pt; color:var(--gray); font-style:italic;}
+.paper .cva{font-size:11.5pt; font-weight:800; color:var(--teal-d); margin:2.5mm 0;}
+.paper .cva b{color:var(--coral); font-size:14pt;}
+.paper .cvrule{font-size:8pt; color:#fff; background:var(--navy); border-radius:6mm; padding:1.4mm 2mm;}
+.paper .verifyrow{display:flex; gap:4mm;}
+.paper .vfcard{flex:1; border:1.2px solid var(--line); border-radius:3mm; padding:4mm; text-align:center;}
+.paper .vfcard.bad{border-color:#F3C9BC; background:#FDF6F3;}
+.paper .vfq{font-size:13pt; font-weight:800; color:var(--navy);}
+.paper .vfa{font-size:9pt; color:#4A6472; margin-top:2mm;}
+.paper /* 스스로 확인 */
+.csec.chk{background:var(--navy); border-radius:4mm; padding:4.2mm 5.5mm; margin-bottom:4mm;}
+.paper .csec.chk h3{color:#fff;}
+.paper .csec.chk .dot{background:var(--coral);}
+.paper .chkrow{display:flex; align-items:center; justify-content:space-between; gap:5mm;}
+.paper .chkq{font-size:11pt; font-weight:700; color:#fff; line-height:2.05;}
+.paper .cbox{display:inline-block; width:10mm; height:6.4mm; background:#fff; border-radius:1.2mm;
+        vertical-align:middle; margin:0 1mm;}
+.paper .cbox.wide{width:17mm;}
+.paper .chkhint{font-size:8.5pt; color:#9FE3DC; white-space:nowrap;}
+.paper /* ── 워크시트 ─────────────────────────── */
+.ws{padding:12mm 14mm 10mm; display:flex; flex-direction:column;}
+.paper .wshead{display:flex; align-items:center; gap:4mm; border-bottom:2.2px solid var(--navy);
+          padding-bottom:3.5mm; margin-bottom:6mm;}
+.paper .daybadge{width:14mm; height:14mm; border-radius:3mm; background:var(--teal); color:#fff;
+            display:flex; flex-direction:column; align-items:center; justify-content:center; flex:none;}
+.paper .dnum{font-size:15pt; font-weight:900; line-height:1;}
+.paper .dlab{font-size:6pt; letter-spacing:.12em; margin-top:.6mm;}
+.paper .wstitle{flex:1; font-size:15pt; font-weight:900; color:var(--navy); letter-spacing:-.02em;}
+.paper .abbadge{width:9mm; height:9mm; border-radius:2mm; background:var(--navy); color:#fff;
+           display:flex; align-items:center; justify-content:center; font-size:12pt; font-weight:900; flex:none;}
+.paper .scorebox{border:1.2px solid var(--line); border-radius:2mm; overflow:hidden; width:34mm; flex:none;}
+.paper .sbrow{display:flex; font-size:7.5pt; color:var(--gray);}
+.paper .sbrow span{flex:1; text-align:center; padding:1.1mm 0; border-bottom:1px solid #E8F0EF;}
+.paper .sbrow span:first-child{border-right:1px solid #E8F0EF;}
+.paper .sbtot{font-size:7.5pt; text-align:center; padding:1.4mm 0; background:var(--teal-l);
+         color:var(--teal-d); font-weight:700;}
+.paper .wsbody{flex:1; min-height:0; display:flex; flex-direction:column;}
+.paper .pfoot{text-align:center; font-size:7.5pt; color:#A8BCC4; margin-top:3mm; flex:none;}
+.paper .grid{display:grid; gap:0; flex:1; min-height:0;}
+.paper .g2{grid-template-columns:1fr 1fr;}
+.paper .g3{grid-template-columns:1fr 1fr 1fr;}
+.paper .g4{grid-template-columns:repeat(4,1fr);}
+.paper .qn{font-size:8pt; color:var(--gray); margin-right:1.5mm; vertical-align:top;}
+.paper /* 가로셈 */
+.mh{display:flex; align-items:center; padding:1mm 2mm;}
+.paper .expr{font-size:15pt; font-weight:600; color:var(--navy); letter-spacing:.02em;}
+.paper .op{margin:0 1.6mm; color:var(--teal-d);}
+.paper .ansbox{display:inline-block; width:19mm; height:8.5mm; border:1.2px solid #B9CBC9;
+          border-radius:1.4mm; margin-left:1.5mm; background:#FAFDFD;}
+.paper .ansbox.sm{width:12mm;}
+.paper /* 세로셈 곱셈 */
+.vgrid{align-content:space-around;}
+.paper .vcell{display:flex; align-items:flex-start; justify-content:center; padding:1mm;}
+.paper .vt{border-collapse:collapse;}
+.paper .vt td,.paper .vt th{width:7.2mm; height:6.8mm; text-align:center; font-size:12.5pt; font-weight:600;
+                 color:var(--navy); border:1px dashed #D6E3E1;}
+.paper .vt th{height:4mm; font-size:6.5pt; font-weight:600; color:#9FB4BC; border:none;}
+.paper .vt .vcarry td{height:4.2mm; border:none;}
+.paper .vt .vline td{border-bottom:1.6px solid var(--navy);}
+.paper .vt .sign{border:none; color:var(--teal-d); font-size:13pt;}
+.paper .vt .blank{}
+.paper .vt .carry{border:none;}
+.paper .vt.demo td{font-size:14pt;}
+.paper .vt .hl{color:var(--coral); font-weight:900;}
+.paper .carrynum{font-size:8pt !important; color:var(--coral) !important; font-weight:800; border:none !important;}
+.paper /* 세로 나눗셈 */
+.dgrid{align-content:space-around;}
+.paper .dcell{display:flex; align-items:flex-start; justify-content:center; padding:1mm;}
+.paper .dt{border-collapse:collapse;}
+.paper .dt td{width:8mm; height:7.4mm; text-align:center; font-size:13pt; font-weight:600; color:var(--navy);}
+.paper .dt .dempty{border:none;}
+.paper .dt tr:first-child td{border-bottom:1.6px solid var(--navy);}
+.paper .dt tr:first-child .dempty{border-bottom:none;}
+.paper .dt .qslot{border:1px dashed #D6E3E1; border-bottom:1.6px solid var(--navy);}
+.paper .dt .dvsr{border-right:1.6px solid var(--navy); position:relative;}
+.paper .dt.demo td{font-size:15pt;}
+.paper .dt .hl{color:var(--coral); font-weight:900;}
+.paper /* 수 가족 문제 */
+.famgrid{align-content:space-around;}
+.paper .fam{border:1.2px solid var(--line); border-radius:3mm; padding:4mm 5mm; margin:1.6mm;}
+.paper .famtop{font-size:14pt; font-weight:800; color:var(--navy); text-align:center;}
+.paper .famarrow{font-size:8pt; color:var(--teal-d); text-align:center; margin:2mm 0;}
+.paper .famrow{text-align:center; font-size:13pt; font-weight:700; color:var(--navy); margin-top:2.6mm;}
+.paper .fbox{display:inline-block; width:11mm; height:7.5mm; border:1.2px solid #B9CBC9;
+        border-radius:1.4mm; vertical-align:middle; margin:0 1mm;}
+.paper /* 묶음 표 */
+.bhint{font-size:9pt; color:var(--teal-d); background:var(--teal-l); border-radius:2mm;
+         padding:2.6mm 4mm; margin-bottom:4mm;}
+.paper .btab{width:100%; border-collapse:collapse;}
+.paper .btab th,.paper .btab td{border:1px solid var(--line); text-align:center; padding:3mm 2mm;
+                     font-size:13pt; font-weight:700; color:var(--navy); height:18mm;}
+.paper .bthdr th{background:var(--navy); color:#fff; font-size:9pt; font-weight:700; height:auto; padding:2.8mm 2mm;}
+.paper .bn{width:10mm; font-size:8pt !important; color:var(--gray) !important; font-weight:400 !important;}
+.paper .hb{display:inline-block; width:12mm; height:8mm; border:1.2px solid #B9CBC9; border-radius:1.4mm;
+      background:#FAFDFD; vertical-align:middle;}
+.paper .bex{width:62mm;}
+.paper .lbox{display:inline-block; width:11mm; height:7.5mm; border-bottom:1.4px solid #B9CBC9; vertical-align:middle; margin:0 1mm;}
+.paper /* 단위 세로셈 */
+.ugrid{align-content:space-around;}
+.paper .ucell{display:flex; align-items:flex-start; justify-content:center; padding:1.5mm;}
+.paper .ut{border-collapse:collapse;}
+.paper .ut td{border:1px dashed #D6E3E1; height:7.4mm; text-align:right; padding:0 2.4mm;
+         font-size:13pt; font-weight:600; color:var(--navy); min-width:20mm;}
+.paper .ut .usign{border:none; width:7mm; min-width:7mm; text-align:center; color:var(--teal-d); font-size:13pt;}
+.paper .ut .ucarry td{border:none; height:4.4mm;}
+.paper .ut .uline td{border-bottom:1.6px solid var(--navy);}
+.paper .ut .ublank td{}
+.paper .uu{font-size:8pt; color:var(--gray); margin-left:1mm; font-weight:400;}
+.paper .ut .hl{color:var(--coral); font-weight:900;}
+.paper .ut.demo td{font-size:13pt;}
+.paper /* □ 식 */
+.eqgrid{align-content:space-around;}
+.paper .eqcell{padding:1.4mm 3mm;}
+.paper .eqq{font-size:12.5pt; font-weight:700; color:var(--navy); margin-bottom:1.6mm;}
+.paper .sq{display:inline-block; width:7.2mm; height:7.2mm; border:1.4px solid var(--navy);
+      border-radius:1.4mm; vertical-align:middle; margin:0 1mm;}
+.paper .eqs{font-size:11pt; color:var(--navy); font-weight:600;}
+.paper .eqline{display:inline-block; width:24mm; border-bottom:1.2px solid #B9CBC9; height:6mm; vertical-align:middle;}
+.paper .eqline.short{width:14mm;}
+.paper /* ── 정답 ─────────────────────────────── */
+.ans{padding:16mm 14mm 10mm;}
+.paper .anshead{font-size:20pt; font-weight:900; color:var(--navy); margin-bottom:6mm;
+           padding-left:4mm; border-left:3mm solid var(--coral);}
+.paper .anstitle{font-size:11pt; font-weight:800; color:#fff; background:var(--navy);
+            border-radius:2mm; padding:2.2mm 4mm; margin:5mm 0 3mm;}
+.paper .ansblock{display:flex; gap:3mm; margin-bottom:2.6mm; align-items:flex-start;}
+.paper .anslab{font-size:8pt; font-weight:700; color:var(--teal-d); background:var(--teal-l);
+          border-radius:1.5mm; padding:1.4mm 2.6mm; white-space:nowrap; flex:none; width:20mm; text-align:center;}
+.paper .anslist{flex:1; display:grid; grid-template-columns:repeat(8,1fr); gap:1mm 2mm;}
+.paper .ansblock.wide .anslist{grid-template-columns:repeat(4,1fr);}
+.paper .ai{font-size:8.5pt; color:var(--navy); white-space:nowrap;}
+.paper .ai i{font-size:6.5pt; color:var(--gray); font-style:normal; margin-right:.8mm;}

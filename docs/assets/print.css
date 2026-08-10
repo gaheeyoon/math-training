@@ -1,0 +1,64 @@
+/* ─────────────────────────────────────────────────────────
+   A4 인쇄 전용 스타일
+   화면에서는 감춰 두고, 인쇄할 때만 #printarea 만 남깁니다.
+   ───────────────────────────────────────────────────────── */
+
+#printarea { display: none; }
+
+@media print {
+  @page { size: A4 portrait; margin: 0; }
+
+  html, body {
+    margin: 0 !important; padding: 0 !important;
+    background: #fff !important; display: block !important;
+    width: 210mm !important;
+  }
+
+  /* 화면 요소는 모두 숨기고 인쇄 지면만 남깁니다 */
+  body > *:not(#printarea) { display: none !important; }
+
+  #printarea {
+    display: block !important;
+    width: 210mm !important;
+    transform: none !important;
+    margin: 0 !important; padding: 0 !important;
+    box-shadow: none !important; border-radius: 0 !important;
+    border: none !important; background: #fff !important;
+    overflow: visible !important; height: auto !important;
+  }
+
+  /* 인쇄본 원본과 같은 A4 지면 크기 복원
+     (화면용 app.css 의 height:auto 를 다시 덮어씁니다) */
+  #printarea.paper .page {
+    width: 210mm !important;
+    height: 297mm !important;
+    min-height: 297mm !important;
+    max-height: 297mm !important;
+    position: relative !important;
+    overflow: hidden !important;
+    page-break-after: always !important;
+    break-after: page !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    background: #fff !important;
+  }
+  #printarea.paper .page:last-child {
+    page-break-after: auto !important;
+    break-after: auto !important;
+  }
+  #printarea.paper .cpwrap {
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100% !important;
+  }
+  #printarea.paper .cptip { margin-bottom: 10mm !important; }
+
+  /* 배경색·아이콘이 그대로 인쇄되도록 */
+  #printarea, #printarea * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
