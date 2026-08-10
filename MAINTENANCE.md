@@ -41,8 +41,8 @@ bash tools/deploy.sh math-training public
 마지막에 주소를 알려줍니다. 평문 데이터가 섞여 들어가지 않는지도 한 번 더 확인합니다.
 
 ```
-학습 페이지  : https://<아이디>.github.io/math-training/
-관리자 페이지: https://<아이디>.github.io/math-training/admin.html
+학습 페이지  : https://yoongahee.com/math-training/
+관리자 페이지: https://yoongahee.com/math-training/admin.html
 ```
 
 ---
@@ -73,8 +73,8 @@ git push -u origin main
 저장하고 1~2분 기다리면 아래 주소로 열립니다.
 
 ```
-https://<아이디>.github.io/<저장소이름>/
-관리자 페이지: https://<아이디>.github.io/<저장소이름>/admin.html
+https://yoongahee.com/math-training/
+관리자 페이지: https://yoongahee.com/math-training/admin.html
 ```
 
 > 반드시 `/docs` 폴더로 지정하세요. 루트로 지정하면 `tools/`까지 웹에 노출됩니다.
@@ -161,7 +161,7 @@ python3 tools/build_auth.py --admin-pass '새_비밀번호'
 ### 코드 확인하기
 
 ```
-https://<아이디>.github.io/math-training/admin.html
+https://yoongahee.com/math-training/admin.html
 ```
 
 1. 위 주소를 열고 운영자 비밀번호를 입력합니다
@@ -171,7 +171,7 @@ https://<아이디>.github.io/math-training/admin.html
 ```
 안녕하세요! 이번 주(8월 10일 ~ 8월 16일) 인증 코드는 9DWS-7645 입니다.
 아래 주소에서 코드를 입력하시면 바로 들어가실 수 있어요.
-https://<아이디>.github.io/math-training/
+https://yoongahee.com/math-training/
 코드는 매주 월요일에 바뀌니, 다음 주에 다시 댓글 남겨주시면 알려드릴게요.
 ```
 

@@ -159,7 +159,9 @@
         copy(now.code, this);
       });
       document.getElementById('copyreply').addEventListener('click', function () {
-        var site = location.href.replace(/admin\.html.*$/, '');
+        /* manifest.js 의 siteUrl 을 먼저 쓰고, 없으면 현재 주소에서 유추합니다 */
+        var site = (window.CURRICULUM && window.CURRICULUM.siteUrl) ||
+                   location.href.replace(/admin\.html.*$/, '');
         copy('안녕하세요! 이번 주(' + fmt(now.start) + ' ~ ' + fmt(now.end) + ') 인증 코드는 ' +
              now.code + ' 입니다.\n' +
              '아래 주소에서 코드를 입력하시면 바로 들어가실 수 있어요.\n' + site + '\n' +

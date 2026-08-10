@@ -12,5 +12,5 @@ node_modules/
 
 # 임시 파일
 _to_delete/
-_sync.tgz
+_sync*.tgz
 _계산트레이닝.zip

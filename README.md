@@ -7,7 +7,7 @@
 A·B 두 장씩 사흘이면 한 회차가 끝나고, 열 회차면 한 학기 분량을 마칩니다.
 
 ```
-https://gaheeyoon.github.io/math-training/
+https://yoongahee.com/math-training/
 ```
 
 ---
