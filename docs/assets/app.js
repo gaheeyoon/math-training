@@ -253,6 +253,107 @@
     return { html: html, answers: answers, cols: 2 };
   };
 
+
+  /* ═══ 1학년 유형 ═══════════════════════════════════════ */
+
+  R.part = function (sheet) {
+    var answers = [];
+    var html = sheet.items.map(function (it, i) {
+      var v = [it.w, it.a, it.b];
+      answers.push([String(v[it.hidden])]);
+      var cell = function (j, cls) {
+        return j === it.hidden ? inp('xs') : '<span class="' + cls + '">' + v[j] + '</span>';
+      };
+      return '<div class="q part" data-i="' + i + '"><span class="no">' + circ(i) + '</span>' +
+        '<span class="mark"></span>' +
+        '<div class="pbar"><div class="pb-top">' + cell(0, 'pv') + '</div>' +
+        '<div class="pb-bot"><div class="pb-half">' + cell(1, 'pv') + '</div>' +
+        '<div class="pb-half">' + cell(2, 'pv') + '</div></div></div></div>';
+    }).join('');
+    return { html: html, answers: answers, cols: 2, hint: sheet.hint };
+  };
+
+  R.arith = function (sheet) {
+    var answers = [];
+    var html = sheet.items.map(function (it, i) {
+      answers.push([String(it[1] === '+' ? it[0] + it[2] : it[0] - it[2])]);
+      return '<div class="q" data-i="' + i + '"><span class="no">' + circ(i) + '</span>' +
+        '<div class="body"><span class="expr">' + it[0] + '<span class="op">' + it[1] + '</span>' +
+        it[2] + '<span class="op">=</span></span>' + inp('sm') + '<span class="mark"></span></div></div>';
+    }).join('');
+    return { html: html, answers: answers, cols: 3 };
+  };
+
+  R.atable = function (sheet) {
+    var it = sheet.items[0], answers = [];
+    var head = '<tr><th class="corner">' + it.op + '</th>' +
+      it.cols.map(function (c) { return '<th>' + c + '</th>'; }).join('') + '</tr>';
+    var rows = it.rows.map(function (r, ri) {
+      var tds = it.cols.map(function (c, ci) {
+        answers.push([String(it.op === '+' ? r + c : r - c)]);
+        return '<td data-i="' + (ri * it.cols.length + ci) + '">' + inp('xs') +
+               '<span class="mark"></span></td>';
+      }).join('');
+      return '<tr><th class="rowh">' + r + '</th>' + tds + '</tr>';
+    }).join('');
+    return {
+      html: '<table class="atab">' + head + rows + '</table>',
+      answers: answers, cols: 1, table: true, cellSel: '.atab td[data-i]',
+      hint: it.op === '+' ? '가로줄의 수와 세로줄의 수를 더해서 빈칸에 쓰세요.'
+                          : '왼쪽 수에서 위쪽 수를 빼서 빈칸에 쓰세요.'
+    };
+  };
+
+  R.eq1 = function (sheet) {
+    var answers = [], SQ = '<span class="sq1"></span>';
+    var html = sheet.items.map(function (it, i) {
+      var q, v;
+      if (it.t === 'ar') { q = it.x + ' + ' + SQ + ' = ' + it.y; v = it.y - it.x; }
+      else if (it.t === 'al') { q = SQ + ' + ' + it.x + ' = ' + it.y; v = it.y - it.x; }
+      else if (it.t === 'sr') { q = it.x + ' − ' + SQ + ' = ' + it.y; v = it.x - it.y; }
+      else { q = SQ + ' − ' + it.x + ' = ' + it.y; v = it.x + it.y; }
+      answers.push([String(v)]);
+      return '<div class="q eq1" data-i="' + i + '"><span class="no">' + circ(i) + '</span>' +
+        '<span class="mark"></span><div class="eq1q">' + q.replace(SQ, inp('xs')) + '</div></div>';
+    }).join('');
+    return { html: html, answers: answers, cols: 2, hint: sheet.hint };
+  };
+
+  R.numfam = function (sheet) {
+    var answers = [];
+    var html = sheet.items.map(function (it, i) {
+      answers.push([String(it.c), String(it.c), String(it.b), String(it.a)]);
+      return '<div class="q numfam" data-i="' + i + '"><span class="no">' + circ(i) + '</span>' +
+        '<span class="mark"></span>' +
+        '<div class="nf-nums"><span>' + it.a + '</span><span>' + it.b + '</span><span>' + it.c + '</span></div>' +
+        '<div class="nf-grid">' +
+        '<div class="nf-item">' + it.a + ' + ' + it.b + ' = ' + inp('xs') + '</div>' +
+        '<div class="nf-item">' + it.b + ' + ' + it.a + ' = ' + inp('xs') + '</div>' +
+        '<div class="nf-item">' + it.c + ' − ' + it.a + ' = ' + inp('xs') + '</div>' +
+        '<div class="nf-item">' + it.c + ' − ' + it.b + ' = ' + inp('xs') + '</div>' +
+        '</div></div>';
+    }).join('');
+    return { html: html, answers: answers, cols: 2,
+             hint: '세 수로 덧셈식 두 개와 뺄셈식 두 개를 만들어 보세요.' };
+  };
+
+  R.seq = function (sheet) {
+    var answers = [];
+    var rows = sheet.items.map(function (it, i) {
+      var av = [], tds = '';
+      for (var k = 0; k < 5; k++) {
+        if (it.hide.indexOf(k) >= 0) { av.push(String(it.start + k)); tds += '<td>' + inp('xs') + '</td>'; }
+        else tds += '<td class="sfix">' + (it.start + k) + '</td>';
+      }
+      answers.push(av);
+      return '<tr data-i="' + i + '"><td class="sn">' + circ(i) + '</td>' + tds +
+             '<td class="smark"><span class="mark"></span></td></tr>';
+    }).join('');
+    return { html: '<table class="stab">' + rows + '</table>', answers: answers,
+             cols: 1, table: true, cellSel: '.stab tr[data-i]',
+             hint: '수의 순서에 맞게 빈칸을 채우세요.' };
+  };
+
   /* ─────────────────────────────────────────────────────
      화면 1 — 학기 목록
      ───────────────────────────────────────────────────── */
@@ -269,7 +370,7 @@
       }
       var rec = p[s.id] || {}, cleared = 0;
       Object.keys(rec).forEach(function (k) { if (isCleared(rec[k])) cleared++; });
-      var total = 60; // 10회차 × DAY 3 × A·B
+      var total = s.sheets || 200;
       var pct = Math.round(cleared / total * 100);
       return '<a class="card" href="#/s/' + s.id + '"><div class="card-tag">' +
         s.grade + '학년 ' + s.term + '학기</div>' +
@@ -303,6 +404,8 @@
         return;
       }
       var rec = (progress()[setId]) || {};
+      var dayCount = data.steps[0] ? data.steps[0].days.length : 10;
+      var pagesPerStep = dayCount * 2 + 2;      /* 표지 + 원리 + 연습 */
       var rows = data.steps.map(function (st) {
         var done = 0;
         st.days.forEach(function (d) {
@@ -329,17 +432,20 @@
         '<div class="page-head withaction">' +
         '<div class="ph-main"><span class="eyebrow">' + esc(data.title) + '</span>' +
         '<h1>' + esc(data.subtitle) + '</h1>' +
-        '<p>' + esc(data.desc || '') + ' · 한 회차는 <b>원리 1장 + 연습 6장(DAY 1~3 × A·B)</b>입니다.<br>' +
-        '하루에 A·B 두 장씩, 3일이면 한 회차가 끝나요.</p></div>' +
+        '<p>' + esc(data.desc || '') + ' · 한 회차는 <b>원리 1장 + 연습 ' + (dayCount * 2) +
+        '장(DAY 1~' + dayCount + ' × A·B)</b>입니다.<br>' +
+        '하루에 A·B 두 장씩, ' + dayCount + '일이면 한 회차가 끝나요.</p></div>' +
         '<div class="ph-act"><button class="btn ghost" id="printset" ' +
-        'title="10회차 전부를 A4 ' + (data.steps.length * 8) + '장으로 인쇄합니다">' +
-        '학기 전체 인쇄</button><span class="ph-hint">A4 ' + (data.steps.length * 8) + '장</span></div>' +
+        'title="' + data.steps.length + '회차 전부를 A4 ' + (data.steps.length * pagesPerStep) +
+        '장으로 인쇄합니다">학기 전체 인쇄</button>' +
+        '<span class="ph-hint">A4 ' + (data.steps.length * pagesPerStep) + '장</span></div>' +
         '</div>' +
         '<div class="step-list">' + rows + '</div>';
 
       document.getElementById('printset').addEventListener('click', function () {
-        if (confirm('10회차 전체를 인쇄합니다. A4 ' + (data.steps.length * 8) +
-                    '장이 출력됩니다. 계속할까요?')) window.Printer.set(data);
+        if (confirm(data.steps.length + '회차 전체를 인쇄합니다. A4 ' +
+                    (data.steps.length * pagesPerStep) +
+                    '장이 출력됩니다. 시간이 걸릴 수 있어요. 계속할까요?')) window.Printer.set(data);
       });
     });
   }
@@ -491,6 +597,7 @@
         '<button class="btn ghost sm" id="printsheet" title="A4 한 장으로 인쇄">인쇄</button>' +
         '</div></div>' +
         '<div id="result"></div>' +
+        (rend.hint ? '<div class="bhint">' + rend.hint + '</div>' : '') +
         '<div class="q-grid cols' + rend.cols + '" id="qgrid">' + rend.html + '</div>' +
         '<div class="actionbar" id="bar">' +
         '<button class="btn lg coral" id="grade">채점하기</button>' +
@@ -539,7 +646,7 @@
         stopTimer();
         var flat = 0, score = 0, wrongIdx = [];
         var nodes = rend.table
-          ? Array.prototype.slice.call(app.querySelectorAll('.bundle-tab tr[data-i]'))
+          ? Array.prototype.slice.call(app.querySelectorAll(rend.cellSel || '.bundle-tab tr[data-i]'))
           : Array.prototype.slice.call(app.querySelectorAll('.q[data-i]'));
 
         rend.answers.forEach(function (ans, qi) {
@@ -613,7 +720,7 @@
       /* 다시 풀기 */
       function reset(onlyIdx) {
         var nodes = rend.table
-          ? Array.prototype.slice.call(app.querySelectorAll('.bundle-tab tr[data-i]'))
+          ? Array.prototype.slice.call(app.querySelectorAll(rend.cellSel || '.bundle-tab tr[data-i]'))
           : Array.prototype.slice.call(app.querySelectorAll('.q[data-i]'));
         nodes.forEach(function (node, qi) {
           if (onlyIdx && onlyIdx.indexOf(qi) === -1) return;

@@ -139,6 +139,85 @@
       }).join('') + '</div>';
   };
 
+
+  /* ═══ 1학년 유형 ═══════════════════════════════════════ */
+
+  G.part = function (s) {
+    return '<div class="bhint">' + esc(s.hint || '') + '</div>' +
+      '<div class="grid g2 pgrid">' + s.items.map(function (it, i) {
+        var v = [it.w, it.a, it.b];
+        var c = function (j) {
+          return j === it.hidden ? '<span class="pb-blank"></span>' : v[j];
+        };
+        return '<div class="pcell"><span class="qn">' + circ(i) + '</span>' +
+          '<div class="pbar"><div class="pb-top">' + c(0) + '</div>' +
+          '<div class="pb-bot"><div class="pb-half">' + c(1) + '</div>' +
+          '<div class="pb-half">' + c(2) + '</div></div></div></div>';
+      }).join('') + '</div>';
+  };
+
+  G.arith = function (s) {
+    return '<div class="grid g3">' + s.items.map(function (it, i) {
+      return '<div class="mh"><span class="qn">' + circ(i) + '</span>' +
+        '<span class="expr">' + it[0] + '<span class="op">' + it[1] + '</span>' + it[2] +
+        '<span class="op">=</span></span><span class="ansbox sm"></span></div>';
+    }).join('') + '</div>';
+  };
+
+  G.atable = function (s) {
+    var it = s.items[0];
+    var head = '<tr><th class="corner">' + it.op + '</th>' +
+      it.cols.map(function (c) { return '<th>' + c + '</th>'; }).join('') + '</tr>';
+    var rows = it.rows.map(function (r) {
+      return '<tr><th class="rowh">' + r + '</th>' +
+        it.cols.map(function () { return '<td class="tblank"></td>'; }).join('') + '</tr>';
+    }).join('');
+    var hint = it.op === '+' ? '가로줄의 수와 세로줄의 수를 더해서 빈칸에 쓰세요.'
+                             : '왼쪽 수에서 위쪽 수를 빼서 빈칸에 쓰세요.';
+    return '<div class="bhint">' + hint + '</div>' +
+           '<table class="atab">' + head + rows + '</table>';
+  };
+
+  G.eq1 = function (s) {
+    var SQ = '<span class="sq1"></span>';
+    return '<div class="bhint">' + esc(s.hint || '') + '</div>' +
+      '<div class="grid g2 eq1grid">' + s.items.map(function (it, i) {
+        var q;
+        if (it.t === 'ar') q = it.x + ' + ' + SQ + ' = ' + it.y;
+        else if (it.t === 'al') q = SQ + ' + ' + it.x + ' = ' + it.y;
+        else if (it.t === 'sr') q = it.x + ' − ' + SQ + ' = ' + it.y;
+        else q = SQ + ' − ' + it.x + ' = ' + it.y;
+        return '<div class="eq1"><span class="qn">' + circ(i) + '</span>' +
+               '<span class="eq1q">' + q + '</span></div>';
+      }).join('') + '</div>';
+  };
+
+  G.numfam = function (s) {
+    return '<div class="bhint">세 수로 덧셈식 두 개와 뺄셈식 두 개를 만들어 보세요.</div>' +
+      '<div class="grid g2 nfgrid">' + s.items.map(function (it, i) {
+        return '<div class="nfam"><span class="qn">' + circ(i) + '</span>' +
+          '<div class="nf-nums"><span>' + it.a + '</span><span>' + it.b + '</span><span>' + it.c + '</span></div>' +
+          '<div class="nf-grid">' +
+          '<div class="nf-item">' + it.a + ' + ' + it.b + ' = <span class="nf-box"></span></div>' +
+          '<div class="nf-item">' + it.b + ' + ' + it.a + ' = <span class="nf-box"></span></div>' +
+          '<div class="nf-item">' + it.c + ' − ' + it.a + ' = <span class="nf-box"></span></div>' +
+          '<div class="nf-item">' + it.c + ' − ' + it.b + ' = <span class="nf-box"></span></div>' +
+          '</div></div>';
+      }).join('') + '</div>';
+  };
+
+  G.seq = function (s) {
+    return '<div class="bhint">수의 순서에 맞게 빈칸을 채우세요.</div>' +
+      '<table class="stab">' + s.items.map(function (it, i) {
+        var tds = '';
+        for (var k = 0; k < 5; k++) {
+          tds += it.hide.indexOf(k) >= 0 ? '<td class="sblank"></td>'
+                                         : '<td>' + (it.start + k) + '</td>';
+        }
+        return '<tr><td class="sn">' + circ(i) + '</td>' + tds + '</tr>';
+      }).join('') + '</table>';
+  };
+
   /* ── 지면 조립 ────────────────────────────────────────── */
   function sheetPage(step, day, sheet) {
     var body = (G[sheet.type] || function () { return ''; })(sheet);
@@ -161,11 +240,9 @@
   }
 
   function coverPage(step) {
-    var cells = [1, 2, 3].map(function (d) {
-      return '<div class="rcol"><div class="rday">DAY ' + d + '</div>' +
-        ['날짜', 'A 맞은 개수', 'A 걸린 시간', 'B 맞은 개수', 'B 걸린 시간'].map(function (t) {
-          return '<div class="rcell"><span>' + t + '</span><i></i></div>'; }).join('') +
-        '<div class="rface"><span>오늘 기분</span><i></i></div></div>';
+    var rows = step.days.map(function (d) {
+      return '<tr><td class="rd">DAY ' + d.day + '</td>' +
+        '<td></td><td></td><td></td><td></td><td></td><td></td></tr>';
     }).join('');
     return page('stepcover',
       '<div class="scnum">' + String(step.no).padStart(2, '0') + '</div>' +
@@ -173,7 +250,9 @@
       '<h2 class="sctitle">' + esc(step.title) + '</h2>' +
       '<div class="scgoal"><span>학습 목표</span>' + esc(step.goal) + '</div></div>' +
       '<div class="record"><div class="rechead">학습 기록표</div>' +
-      '<div class="recgrid">' + cells + '</div>' +
+      '<table class="rectab">' +
+      '<tr class="rechdr"><th></th><th>날짜</th><th>A 맞은 개수</th><th>A 걸린 시간</th>' +
+      '<th>B 맞은 개수</th><th>B 걸린 시간</th><th>확인</th></tr>' + rows + '</table>' +
       '<div class="recnote">걸린 시간과 맞은 개수를 함께 적어 두면, ' +
       '속도와 정확도 중 무엇을 더 신경 써야 하는지 한눈에 보입니다.</div></div>');
   }

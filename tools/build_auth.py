@@ -83,6 +83,69 @@ def read_source_sets():
     return sets
 
 
+def read_js_payload(path, varname):
+    """자동 생성된 js 파일에서 JSON 페이로드를 꺼냅니다."""
+    text = open(path, encoding='utf-8').read()
+    m = re.search(r'window\.' + varname + r'\s*=\s*(\{.*\})\s*;?\s*$', text, re.S)
+    if not m:
+        sys.exit(f"{path} 형식을 읽을 수 없습니다.")
+    return json.loads(m.group(1))
+
+
+def rebuild_data_only(admin_pass):
+    """인증 코드를 그대로 유지한 채 학습 데이터만 다시 암호화합니다.
+
+    관리자 비밀번호로 코드 목록을 열고, 그중 하나로 콘텐츠 키를 되찾아
+    새 데이터를 같은 키로 암호화합니다. keys.js 와 adminvault.js 는 건드리지 않습니다.
+    """
+    vault_path = os.path.join(OUT, 'adminvault.js')
+    keys_path = os.path.join(OUT, 'keys.js')
+    for path in (vault_path, keys_path):
+        if not os.path.exists(path):
+            sys.exit(f"{path} 가 없습니다. 먼저 코드를 발급해 주세요(--data-only 없이 실행).")
+
+    vault = read_js_payload(vault_path, 'ADMIN_VAULT')
+    try:
+        raw = AESGCM(derive(admin_pass, base64.b64decode(vault['salt']))) \
+            .decrypt(base64.b64decode(vault['iv']), base64.b64decode(vault['ct']), None)
+    except Exception:
+        sys.exit("관리자 비밀번호가 맞지 않습니다.")
+    codes = json.loads(raw.decode('utf-8'))
+
+    auth = read_js_payload(keys_path, 'AUTH')
+    weeks = {w['i']: w for w in auth['weeks']}
+
+    content_key = None
+    for c in codes:
+        w = weeks.get(c['i'])
+        if not w:
+            continue
+        try:
+            content_key = AESGCM(derive(normalize(c['code']), base64.b64decode(w['salt']))) \
+                .decrypt(base64.b64decode(w['iv']), base64.b64decode(w['ct']), None)
+            break
+        except Exception:
+            continue
+    if content_key is None:
+        sys.exit("콘텐츠 키를 되찾지 못했습니다. keys.js 와 adminvault.js 가 짝이 맞는지 확인해 주세요.")
+
+    sets = read_source_sets()
+    if not sets:
+        sys.exit("source 폴더에서 학습 데이터를 찾지 못했습니다.")
+    for sid, data in sets.items():
+        blob = json.dumps(data, ensure_ascii=False, separators=(',', ':')).encode('utf-8')
+        iv, ct = encrypt(content_key, blob)
+        with open(os.path.join(OUT, f'{sid}.enc.js'), 'w', encoding='utf-8') as f:
+            f.write('/* 자동 생성 — 암호화된 학습 데이터. 직접 수정하지 마세요. */\n')
+            f.write('window.registerEncryptedSet(' +
+                    json.dumps({'id': sid, 'iv': b64(iv), 'ct': b64(ct)},
+                               ensure_ascii=False, separators=(',', ':')) + ');\n')
+        print(f"  다시 암호화: {sid}  ({len(blob):,}바이트)")
+
+    print("\n학습 데이터만 새로 암호화했습니다. 인증 코드는 그대로입니다.")
+    return
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--admin-pass', required=True, help='관리자 페이지 비밀번호')
@@ -91,10 +154,15 @@ def main():
                     help='1주차 시작일 (YYYY-MM-DD, 월요일 권장). 생략하면 이번 주 월요일')
     ap.add_argument('--grace', type=int, default=1,
                     help='지난 주 코드도 며칠 더 받아줄지 (0=이번 주만, 1=지난 주까지)')
+    ap.add_argument('--data-only', action='store_true',
+                    help='인증 코드는 그대로 두고 학습 데이터만 다시 암호화합니다')
     args = ap.parse_args()
 
     if len(args.admin_pass) < 8:
         sys.exit("관리자 비밀번호는 8자 이상으로 정해 주세요.")
+
+    if args.data_only:
+        return rebuild_data_only(args.admin_pass)
 
     # ── 1주차 시작일 (월요일 기준) ──────────────────────────
     if args.start:

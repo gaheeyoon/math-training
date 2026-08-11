@@ -26,10 +26,19 @@ window.CURRICULUM = {
        status   : 'ready'(공개) 또는 'soon'(준비 중)             */
   sets: [
     {
+      id: '1-1', grade: 1, term: 1,
+      title: '1학년 1학기',
+      subtitle: '덧셈과 뺄셈의 시작',
+      desc: '모으기와 가르기부터 □가 있는 식까지',
+      sheets: 200,          /* 10회차 × DAY 10 × A·B */
+      status: 'ready'
+    },
+    {
       id: '3-1', grade: 3, term: 1,
       title: '3학년 1학기',
       subtitle: '곱셈과 나눗셈',
       desc: '(두 자리 수) × (한 자리 수)부터 □가 있는 식까지',
+      sheets: 200,          /* 10회차 × DAY 10 × A·B */
       status: 'ready'
     },
     {

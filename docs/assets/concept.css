@@ -48,26 +48,27 @@
            padding:3.6mm 5mm; font-size:9pt; color:#9C4028; line-height:1.55;}
 .paper /* ── 회차 표지 ─────────────────────────── */
 .stepcover{padding:0;}
-.paper .scnum{position:absolute; right:14mm; top:10mm; font-size:110pt; font-weight:900;
+.paper .scnum{position:absolute; right:14mm; top:6mm; font-size:88pt; font-weight:900;
          color:var(--teal-l); letter-spacing:-.04em;}
-.paper .scwrap{position:relative; padding:34mm 20mm 0;}
+.paper .scwrap{position:relative; padding:26mm 20mm 0;}
 .paper .sctag{display:inline-block; background:var(--coral); color:#fff; font-size:9.5pt; font-weight:700;
          padding:1.6mm 5mm; border-radius:10mm; letter-spacing:.05em;}
-.paper .sctitle{font-size:30pt; font-weight:900; color:var(--navy); margin-top:6mm; letter-spacing:-.02em;}
+.paper .sctitle{font-size:26pt; font-weight:900; color:var(--navy); margin-top:6mm; letter-spacing:-.02em;}
 .paper .scgoal{margin-top:7mm; background:var(--teal-l); border-left:2.6mm solid var(--teal);
           border-radius:0 3mm 3mm 0; padding:5.5mm 6mm; font-size:10.5pt; line-height:1.7; color:#1C4B52;}
 .paper .scgoal span{display:block; font-size:8.5pt; font-weight:800; color:var(--teal-d);
                letter-spacing:.14em; margin-bottom:2mm;}
-.paper .record{position:absolute; left:20mm; right:20mm; bottom:24mm;}
+.paper .record{position:absolute; left:20mm; right:20mm; bottom:18mm;}
 .paper .rechead{font-size:12pt; font-weight:800; color:var(--navy); margin-bottom:5mm;
            padding-left:3.5mm; border-left:2mm solid var(--teal);}
-.paper .recgrid{display:grid; grid-template-columns:1fr 1fr 1fr; gap:4mm;}
-.paper .rcol{border:1.2px solid var(--line); border-radius:3mm; overflow:hidden;}
-.paper .rday{background:var(--teal); color:#fff; text-align:center; font-weight:800; font-size:10pt; padding:2.6mm;}
-.paper .rcell,.paper .rface{display:flex; align-items:center; border-top:1px solid #E8F0EF; padding:0 3mm; height:11mm;}
-.paper .rcell span,.paper .rface span{font-size:8pt; color:var(--gray); width:20mm; flex:none;}
-.paper .rcell i,.paper .rface i{flex:1; border-bottom:1px dotted #B9CBC9; height:6mm;}
-.paper .rface{background:#FAFCFC; height:13mm;}
+.paper .rectab{width:100%; border-collapse:collapse;}
+.paper .rectab th,.paper .rectab td{border:1px solid var(--line); height:10.5mm;}
+.paper .rechdr th{background:var(--teal); color:#fff; font-size:7.5pt; font-weight:700;
+             height:8mm; padding:0 1mm; border-color:var(--teal);}
+.paper .rectab .rd{background:var(--teal-l); color:var(--teal-d); font-weight:800;
+              font-size:8.5pt; text-align:center; width:18mm;}
+.paper .rectab tr:nth-child(even) td{background:#FAFDFD;}
+.paper .rectab tr:nth-child(even) .rd{background:var(--teal-l);}
 .paper .recnote{margin-top:4mm; font-size:8.5pt; color:var(--gray); text-align:center; line-height:1.6;}
 .paper /* ── 원리 페이지 ───────────────────────── */
 .concept{padding:0;}
@@ -330,15 +331,364 @@
 .paper .eqline{display:inline-block; width:24mm; border-bottom:1.2px solid #B9CBC9; height:6mm; vertical-align:middle;}
 .paper .eqline.short{width:14mm;}
 .paper /* ── 정답 ─────────────────────────────── */
-.ans{padding:16mm 14mm 10mm;}
+.ans{padding:14mm 14mm 8mm; display:flex; flex-direction:column;}
 .paper .anshead{font-size:20pt; font-weight:900; color:var(--navy); margin-bottom:6mm;
            padding-left:4mm; border-left:3mm solid var(--coral);}
-.paper .anstitle{font-size:11pt; font-weight:800; color:#fff; background:var(--navy);
-            border-radius:2mm; padding:2.2mm 4mm; margin:5mm 0 3mm;}
-.paper .ansblock{display:flex; gap:3mm; margin-bottom:2.6mm; align-items:flex-start;}
+.paper .anstitle{font-size:10.5pt; font-weight:800; color:#fff; background:var(--navy);
+            border-radius:2mm; padding:2mm 4mm; margin:0 0 3mm; flex:none;}
+.paper .anscont{font-size:8.5pt; font-weight:600; color:#9FE3DC;}
+.paper .ansblock{display:flex; gap:3mm; margin-bottom:2.4mm; align-items:flex-start; flex:none;}
 .paper .anslab{font-size:8pt; font-weight:700; color:var(--teal-d); background:var(--teal-l);
           border-radius:1.5mm; padding:1.4mm 2.6mm; white-space:nowrap; flex:none; width:20mm; text-align:center;}
 .paper .anslist{flex:1; display:grid; grid-template-columns:repeat(8,1fr); gap:1mm 2mm;}
 .paper .ansblock.wide .anslist{grid-template-columns:repeat(4,1fr);}
 .paper .ai{font-size:8.5pt; color:var(--navy); white-space:nowrap;}
 .paper .ai i{font-size:6.5pt; color:var(--gray); font-style:normal; margin-right:.8mm;}
+
+/* ── 1학년 전용 (자동 생성) ────────────────────── */
+.paper /* ── 가르기·모으기 막대 ─────────────────────────────── */
+.pgrid{align-content:space-around;}
+.paper .pcell{display:flex; align-items:flex-start; gap:2.5mm; padding:2mm 4mm;}
+.paper .pbar{width:52mm; border:1.4px solid var(--navy); border-radius:2mm; overflow:hidden;}
+.paper .pb-top{height:13mm; display:flex; align-items:center; justify-content:center;
+          font-size:15pt; font-weight:800; color:var(--navy); background:var(--teal-l);
+          border-bottom:1.4px solid var(--navy);}
+.paper .pb-bot{display:flex;}
+.paper .pb-half{flex:1; height:13mm; display:flex; align-items:center; justify-content:center;
+           font-size:15pt; font-weight:700; color:var(--navy);}
+.paper .pb-half:first-child{border-right:1.4px solid var(--navy);}
+.paper .pb-blank{display:inline-block; width:12mm; height:7mm; border-bottom:1.4px solid #B9CBC9;}
+.paper .pbar.demo{width:44mm;}
+.paper .pdemo{display:flex; align-items:center; gap:8mm; background:#F7FBFB; border-radius:4mm; padding:5mm 6mm;}
+.paper .pdnote{font-size:9.5pt; line-height:1.9; color:#3D5866;}
+.paper .pdnote b{color:var(--teal-d);}
+.paper /* ── 가르기 사다리 ──────────────────────────────────── */
+.ladder{background:var(--teal-l); border-radius:3.5mm; padding:4.5mm;}
+.paper .ldrow{display:flex; align-items:center; gap:2mm; flex-wrap:wrap; justify-content:center;}
+.paper .ldw{background:var(--navy); color:#fff; font-size:11pt; font-weight:800;
+       border-radius:2mm; padding:1.8mm 3.5mm;}
+.paper .ldp{background:#fff; border:1px solid var(--line); border-radius:2mm;
+       padding:1.8mm 3mm; font-size:10.5pt; font-weight:700; color:var(--navy);}
+.paper /* ── 개념 연결 카드 ─────────────────────────────────── */
+.bridge{display:flex; align-items:stretch; gap:3mm; justify-content:center;}
+.paper .brcard{flex:1; max-width:60mm; background:#F7FBFB; border:1.2px solid var(--line);
+          border-radius:3mm; padding:4mm; text-align:center;}
+.paper .brcard.hi{background:var(--navy); border-color:var(--navy);}
+.paper .brlab{font-size:8pt; font-weight:800; color:var(--teal-d); letter-spacing:.08em;}
+.paper .brcard.hi .brlab{color:#7FD9D0;}
+.paper .brbody{font-size:13pt; font-weight:800; color:var(--navy); margin-top:1.8mm;}
+.paper .brcard.hi .brbody{color:#fff;}
+.paper .brcard.hi .brbody b{color:#7FD9D0;}
+.paper .brto{display:flex; align-items:center; font-size:14pt; font-weight:900; color:var(--teal);}
+.paper /* ── 읽기 카드 ──────────────────────────────────────── */
+.readrow{display:flex; gap:3.5mm;}
+.paper .rdcard{flex:1; border:1.2px solid var(--line); border-radius:3mm; padding:4mm; text-align:center;}
+.paper .rdcard.bad{border-color:#F3C9BC; background:#FDF6F3;}
+.paper .rdq{font-size:14pt; font-weight:800; color:var(--navy);}
+.paper .rda{font-size:9pt; color:#4A6472; margin-top:2mm;}
+.paper /* ── 교환법칙 ───────────────────────────────────────── */
+.swaprow{display:flex; gap:3mm; align-items:stretch; justify-content:center;}
+.paper .swcard{flex:1; max-width:62mm; border:1.2px solid var(--line); border-radius:3mm;
+          padding:4mm; text-align:center;}
+.paper .swcard.hi{background:var(--teal-l); border-color:var(--teal);}
+.paper .swq{font-size:14pt; font-weight:800; color:var(--navy);}
+.paper .swa{font-size:8.5pt; color:var(--gray); margin-top:1.8mm;}
+.paper .swto{display:flex; align-items:center; font-size:15pt; color:var(--teal); font-weight:900;}
+.paper /* ── 수의 순서 데모 ─────────────────────────────────── */
+.seqdemo{display:flex; gap:2.5mm; justify-content:center;}
+.paper .seqdemo span{width:14mm; height:11mm; border:1.2px solid var(--line); border-radius:2mm;
+                display:flex; align-items:center; justify-content:center;
+                font-size:12pt; font-weight:700; color:var(--navy); background:#fff;}
+.paper .seqdemo .hi{background:var(--coral); border-color:var(--coral); color:#fff;}
+.paper /* ── 덧셈표 · 뺄셈표 ────────────────────────────────── */
+.atab{border-collapse:collapse; margin:0 auto;}
+.paper .atab th,.paper .atab td{width:24mm; height:17mm; text-align:center; border:1px solid var(--line);
+                     font-size:15pt; font-weight:700; color:var(--navy);}
+.paper .atab .corner{background:var(--navy); color:#fff; font-size:17pt;}
+.paper .atab tr:first-child th{background:var(--teal); color:#fff;}
+.paper .atab .rowh{background:var(--teal-l); color:var(--teal-d);}
+.paper .atab .tblank{background:#FBFDFD;}
+.paper /* ── □가 있는 식 (1학년) ────────────────────────────── */
+.eq1grid{align-content:space-around;}
+.paper .eq1{display:flex; align-items:center; gap:2mm; padding:1.5mm 3mm;}
+.paper .eq1q{font-size:15pt; font-weight:700; color:var(--navy);}
+.paper .sq1{display:inline-block; width:9mm; height:9mm; border:1.5px solid var(--coral);
+       border-radius:1.5mm; vertical-align:middle; margin:0 1.5mm;}
+.paper /* ── 수 가족 (1학년) ────────────────────────────────── */
+.nfgrid{align-content:space-around;}
+.paper .nfam{border:1.2px solid var(--line); border-radius:3mm; padding:3.5mm 4mm; margin:1.5mm;}
+.paper .nf-nums{display:flex; justify-content:center; gap:3mm; margin-bottom:2.5mm;}
+.paper .nf-nums span{width:11mm; height:11mm; border-radius:50%; background:var(--teal-l);
+                border:1.2px solid var(--teal); display:flex; align-items:center;
+                justify-content:center; font-size:12pt; font-weight:800; color:var(--navy);}
+.paper .nf-grid{display:grid; grid-template-columns:1fr 1fr; gap:2mm;}
+.paper .nf-item{font-size:12pt; font-weight:700; color:var(--navy); text-align:center;}
+.paper .nf-box{display:inline-block; width:10mm; height:7mm; border:1.2px solid #B9CBC9;
+          border-radius:1.2mm; vertical-align:middle; margin-left:1mm;}
+.paper /* ── 수의 순서 표 ───────────────────────────────────── */
+.stab{width:100%; border-collapse:collapse;}
+.paper .stab td{border:1px solid var(--line); height:15mm; text-align:center;
+           font-size:15pt; font-weight:700; color:var(--navy);}
+.paper .stab .sn{border:none; width:10mm; font-size:8pt; color:var(--gray); font-weight:400;}
+.paper .stab .sblank{background:#FBFDFD;}
+
+/* ── 1학년 전용 (자동 생성) ────────────────────── */
+.paper /* ── 가르기·모으기 막대 ─────────────────────────────── */
+.pgrid{align-content:space-around;}
+.paper .pcell{display:flex; align-items:flex-start; gap:2.5mm; padding:2mm 4mm;}
+.paper .pbar{width:52mm; border:1.4px solid var(--navy); border-radius:2mm; overflow:hidden;}
+.paper .pb-top{height:13mm; display:flex; align-items:center; justify-content:center;
+          font-size:15pt; font-weight:800; color:var(--navy); background:var(--teal-l);
+          border-bottom:1.4px solid var(--navy);}
+.paper .pb-bot{display:flex;}
+.paper .pb-half{flex:1; height:13mm; display:flex; align-items:center; justify-content:center;
+           font-size:15pt; font-weight:700; color:var(--navy);}
+.paper .pb-half:first-child{border-right:1.4px solid var(--navy);}
+.paper .pb-blank{display:inline-block; width:12mm; height:7mm; border-bottom:1.4px solid #B9CBC9;}
+.paper .pbar.demo{width:44mm;}
+.paper .pdemo{display:flex; align-items:center; gap:8mm; background:#F7FBFB; border-radius:4mm; padding:5mm 6mm;}
+.paper .pdnote{font-size:9.5pt; line-height:1.9; color:#3D5866;}
+.paper .pdnote b{color:var(--teal-d);}
+.paper /* ── 가르기 사다리 ──────────────────────────────────── */
+.ladder{background:var(--teal-l); border-radius:3.5mm; padding:4.5mm;}
+.paper .ldrow{display:flex; align-items:center; gap:2mm; flex-wrap:wrap; justify-content:center;}
+.paper .ldw{background:var(--navy); color:#fff; font-size:11pt; font-weight:800;
+       border-radius:2mm; padding:1.8mm 3.5mm;}
+.paper .ldp{background:#fff; border:1px solid var(--line); border-radius:2mm;
+       padding:1.8mm 3mm; font-size:10.5pt; font-weight:700; color:var(--navy);}
+.paper /* ── 개념 연결 카드 ─────────────────────────────────── */
+.bridge{display:flex; align-items:stretch; gap:3mm; justify-content:center;}
+.paper .brcard{flex:1; max-width:60mm; background:#F7FBFB; border:1.2px solid var(--line);
+          border-radius:3mm; padding:4mm; text-align:center;}
+.paper .brcard.hi{background:var(--navy); border-color:var(--navy);}
+.paper .brlab{font-size:8pt; font-weight:800; color:var(--teal-d); letter-spacing:.08em;}
+.paper .brcard.hi .brlab{color:#7FD9D0;}
+.paper .brbody{font-size:13pt; font-weight:800; color:var(--navy); margin-top:1.8mm;}
+.paper .brcard.hi .brbody{color:#fff;}
+.paper .brcard.hi .brbody b{color:#7FD9D0;}
+.paper .brto{display:flex; align-items:center; font-size:14pt; font-weight:900; color:var(--teal);}
+.paper /* ── 읽기 카드 ──────────────────────────────────────── */
+.readrow{display:flex; gap:3.5mm;}
+.paper .rdcard{flex:1; border:1.2px solid var(--line); border-radius:3mm; padding:4mm; text-align:center;}
+.paper .rdcard.bad{border-color:#F3C9BC; background:#FDF6F3;}
+.paper .rdq{font-size:14pt; font-weight:800; color:var(--navy);}
+.paper .rda{font-size:9pt; color:#4A6472; margin-top:2mm;}
+.paper /* ── 교환법칙 ───────────────────────────────────────── */
+.swaprow{display:flex; gap:3mm; align-items:stretch; justify-content:center;}
+.paper .swcard{flex:1; max-width:62mm; border:1.2px solid var(--line); border-radius:3mm;
+          padding:4mm; text-align:center;}
+.paper .swcard.hi{background:var(--teal-l); border-color:var(--teal);}
+.paper .swq{font-size:14pt; font-weight:800; color:var(--navy);}
+.paper .swa{font-size:8.5pt; color:var(--gray); margin-top:1.8mm;}
+.paper .swto{display:flex; align-items:center; font-size:15pt; color:var(--teal); font-weight:900;}
+.paper /* ── 수의 순서 데모 ─────────────────────────────────── */
+.seqdemo{display:flex; gap:2.5mm; justify-content:center;}
+.paper .seqdemo span{width:14mm; height:11mm; border:1.2px solid var(--line); border-radius:2mm;
+                display:flex; align-items:center; justify-content:center;
+                font-size:12pt; font-weight:700; color:var(--navy); background:#fff;}
+.paper .seqdemo .hi{background:var(--coral); border-color:var(--coral); color:#fff;}
+.paper /* ── 덧셈표 · 뺄셈표 ────────────────────────────────── */
+.atab{border-collapse:collapse; margin:0 auto;}
+.paper .atab th,.paper .atab td{width:33mm; height:30mm; text-align:center; border:1.2px solid var(--line);
+                     font-size:19pt; font-weight:700; color:var(--navy);}
+.paper .atab .corner{background:var(--navy); color:#fff; font-size:22pt;}
+.paper .atab tr:first-child th{background:var(--teal); color:#fff;}
+.paper .atab .rowh{background:var(--teal-l); color:var(--teal-d);}
+.paper .atab .tblank{background:#FBFDFD;}
+.paper /* ── □가 있는 식 (1학년) ────────────────────────────── */
+.eq1grid{align-content:space-around;}
+.paper .eq1{display:flex; align-items:center; gap:2mm; padding:1.5mm 3mm;}
+.paper .eq1q{font-size:15pt; font-weight:700; color:var(--navy);}
+.paper .sq1{display:inline-block; width:9mm; height:9mm; border:1.5px solid var(--coral);
+       border-radius:1.5mm; vertical-align:middle; margin:0 1.5mm;}
+.paper /* ── 수 가족 (1학년) ────────────────────────────────── */
+.nfgrid{align-content:space-around;}
+.paper .nfam{border:1.2px solid var(--line); border-radius:3mm; padding:4.5mm 5mm; margin:2mm;}
+.paper .nf-nums{display:flex; justify-content:center; gap:3mm; margin-bottom:2.5mm;}
+.paper .nf-nums span{width:11mm; height:11mm; border-radius:50%; background:var(--teal-l);
+                border:1.2px solid var(--teal); display:flex; align-items:center;
+                justify-content:center; font-size:12pt; font-weight:800; color:var(--navy);}
+.paper .nf-grid{display:grid; grid-template-columns:1fr 1fr; gap:2mm;}
+.paper .nf-item{font-size:13pt; font-weight:700; color:var(--navy); text-align:center;}
+.paper .nf-box{display:inline-block; width:10mm; height:7mm; border:1.2px solid #B9CBC9;
+          border-radius:1.2mm; vertical-align:middle; margin-left:1mm;}
+.paper /* ── 수의 순서 표 ───────────────────────────────────── */
+.stab{width:100%; border-collapse:collapse;}
+.paper .stab td{border:1px solid var(--line); height:15mm; text-align:center;
+           font-size:15pt; font-weight:700; color:var(--navy);}
+.paper .stab .sn{border:none; width:10mm; font-size:8pt; color:var(--gray); font-weight:400;}
+.paper .stab .sblank{background:#FBFDFD;}
+
+/* ── 1학년 전용 (자동 생성) ────────────────────── */
+.paper /* ── 가르기·모으기 막대 ─────────────────────────────── */
+.pgrid{align-content:space-around;}
+.paper .pcell{display:flex; align-items:flex-start; gap:2.5mm; padding:2mm 4mm;}
+.paper .pbar{width:52mm; border:1.4px solid var(--navy); border-radius:2mm; overflow:hidden;}
+.paper .pb-top{height:13mm; display:flex; align-items:center; justify-content:center;
+          font-size:15pt; font-weight:800; color:var(--navy); background:var(--teal-l);
+          border-bottom:1.4px solid var(--navy);}
+.paper .pb-bot{display:flex;}
+.paper .pb-half{flex:1; height:13mm; display:flex; align-items:center; justify-content:center;
+           font-size:15pt; font-weight:700; color:var(--navy);}
+.paper .pb-half:first-child{border-right:1.4px solid var(--navy);}
+.paper .pb-blank{display:inline-block; width:12mm; height:7mm; border-bottom:1.4px solid #B9CBC9;}
+.paper .pbar.demo{width:44mm;}
+.paper .pdemo{display:flex; align-items:center; gap:8mm; background:#F7FBFB; border-radius:4mm; padding:5mm 6mm;}
+.paper .pdnote{font-size:9.5pt; line-height:1.9; color:#3D5866;}
+.paper .pdnote b{color:var(--teal-d);}
+.paper /* ── 가르기 사다리 ──────────────────────────────────── */
+.ladder{background:var(--teal-l); border-radius:3.5mm; padding:4.5mm;}
+.paper .ldrow{display:flex; align-items:center; gap:2mm; flex-wrap:wrap; justify-content:center;}
+.paper .ldw{background:var(--navy); color:#fff; font-size:11pt; font-weight:800;
+       border-radius:2mm; padding:1.8mm 3.5mm;}
+.paper .ldp{background:#fff; border:1px solid var(--line); border-radius:2mm;
+       padding:1.8mm 3mm; font-size:10.5pt; font-weight:700; color:var(--navy);}
+.paper /* ── 개념 연결 카드 ─────────────────────────────────── */
+.bridge{display:flex; align-items:stretch; gap:3mm; justify-content:center;}
+.paper .brcard{flex:1; max-width:60mm; background:#F7FBFB; border:1.2px solid var(--line);
+          border-radius:3mm; padding:4mm; text-align:center;}
+.paper .brcard.hi{background:var(--navy); border-color:var(--navy);}
+.paper .brlab{font-size:8pt; font-weight:800; color:var(--teal-d); letter-spacing:.08em;}
+.paper .brcard.hi .brlab{color:#7FD9D0;}
+.paper .brbody{font-size:13pt; font-weight:800; color:var(--navy); margin-top:1.8mm;}
+.paper .brcard.hi .brbody{color:#fff;}
+.paper .brcard.hi .brbody b{color:#7FD9D0;}
+.paper .brto{display:flex; align-items:center; font-size:14pt; font-weight:900; color:var(--teal);}
+.paper /* ── 읽기 카드 ──────────────────────────────────────── */
+.readrow{display:flex; gap:3.5mm;}
+.paper .rdcard{flex:1; border:1.2px solid var(--line); border-radius:3mm; padding:4mm; text-align:center;}
+.paper .rdcard.bad{border-color:#F3C9BC; background:#FDF6F3;}
+.paper .rdq{font-size:14pt; font-weight:800; color:var(--navy);}
+.paper .rda{font-size:9pt; color:#4A6472; margin-top:2mm;}
+.paper /* ── 교환법칙 ───────────────────────────────────────── */
+.swaprow{display:flex; gap:3mm; align-items:stretch; justify-content:center;}
+.paper .swcard{flex:1; max-width:62mm; border:1.2px solid var(--line); border-radius:3mm;
+          padding:4mm; text-align:center;}
+.paper .swcard.hi{background:var(--teal-l); border-color:var(--teal);}
+.paper .swq{font-size:14pt; font-weight:800; color:var(--navy);}
+.paper .swa{font-size:8.5pt; color:var(--gray); margin-top:1.8mm;}
+.paper .swto{display:flex; align-items:center; font-size:15pt; color:var(--teal); font-weight:900;}
+.paper /* ── 수의 순서 데모 ─────────────────────────────────── */
+.seqdemo{display:flex; gap:2.5mm; justify-content:center;}
+.paper .seqdemo span{width:14mm; height:11mm; border:1.2px solid var(--line); border-radius:2mm;
+                display:flex; align-items:center; justify-content:center;
+                font-size:12pt; font-weight:700; color:var(--navy); background:#fff;}
+.paper .seqdemo .hi{background:var(--coral); border-color:var(--coral); color:#fff;}
+.paper /* ── 덧셈표 · 뺄셈표 ────────────────────────────────── */
+.atab{border-collapse:collapse; margin:0 auto;}
+.paper .atab th,.paper .atab td{width:33mm; height:30mm; text-align:center; border:1.2px solid var(--line);
+                     font-size:19pt; font-weight:700; color:var(--navy);}
+.paper .atab .corner{background:var(--navy); color:#fff; font-size:22pt;}
+.paper .atab tr:first-child th{background:var(--teal); color:#fff;}
+.paper .atab .rowh{background:var(--teal-l); color:var(--teal-d);}
+.paper .atab .tblank{background:#FBFDFD;}
+.paper /* ── □가 있는 식 (1학년) ────────────────────────────── */
+.eq1grid{align-content:space-around;}
+.paper .eq1{display:flex; align-items:center; gap:2mm; padding:1.5mm 3mm;}
+.paper .eq1q{font-size:15pt; font-weight:700; color:var(--navy);}
+.paper .sq1{display:inline-block; width:9mm; height:9mm; border:1.5px solid var(--coral);
+       border-radius:1.5mm; vertical-align:middle; margin:0 1.5mm;}
+.paper /* ── 수 가족 (1학년) ────────────────────────────────── */
+.nfgrid{align-content:space-around;}
+.paper .nfam{border:1.2px solid var(--line); border-radius:3mm; padding:4.5mm 5mm; margin:2mm;}
+.paper .nf-nums{display:flex; justify-content:center; gap:3mm; margin-bottom:2.5mm;}
+.paper .nf-nums span{width:11mm; height:11mm; border-radius:50%; background:var(--teal-l);
+                border:1.2px solid var(--teal); display:flex; align-items:center;
+                justify-content:center; font-size:12pt; font-weight:800; color:var(--navy);}
+.paper .nf-grid{display:grid; grid-template-columns:1fr 1fr; gap:2mm;}
+.paper .nf-item{font-size:13pt; font-weight:700; color:var(--navy); text-align:center;}
+.paper .nf-box{display:inline-block; width:10mm; height:7mm; border:1.2px solid #B9CBC9;
+          border-radius:1.2mm; vertical-align:middle; margin-left:1mm;}
+.paper /* ── 수의 순서 표 ───────────────────────────────────── */
+.stab{width:100%; border-collapse:collapse;}
+.paper .stab td{border:1px solid var(--line); height:15mm; text-align:center;
+           font-size:15pt; font-weight:700; color:var(--navy);}
+.paper .stab .sn{border:none; width:10mm; font-size:8pt; color:var(--gray); font-weight:400;}
+.paper .stab .sblank{background:#FBFDFD;}
+
+/* ── 1학년 전용 (자동 생성) ────────────────────── */
+.paper /* ── 가르기·모으기 막대 ─────────────────────────────── */
+.pgrid{align-content:space-around;}
+.paper .pcell{display:flex; align-items:flex-start; gap:2.5mm; padding:2mm 4mm;}
+.paper .pbar{width:52mm; border:1.4px solid var(--navy); border-radius:2mm; overflow:hidden;}
+.paper .pb-top{height:13mm; display:flex; align-items:center; justify-content:center;
+          font-size:15pt; font-weight:800; color:var(--navy); background:var(--teal-l);
+          border-bottom:1.4px solid var(--navy);}
+.paper .pb-bot{display:flex;}
+.paper .pb-half{flex:1; height:13mm; display:flex; align-items:center; justify-content:center;
+           font-size:15pt; font-weight:700; color:var(--navy);}
+.paper .pb-half:first-child{border-right:1.4px solid var(--navy);}
+.paper .pb-blank{display:inline-block; width:12mm; height:7mm; border-bottom:1.4px solid #B9CBC9;}
+.paper .pbar.demo{width:44mm;}
+.paper .pdemo{display:flex; align-items:center; gap:8mm; background:#F7FBFB; border-radius:4mm; padding:5mm 6mm;}
+.paper .pdnote{font-size:9.5pt; line-height:1.9; color:#3D5866;}
+.paper .pdnote b{color:var(--teal-d);}
+.paper /* ── 가르기 사다리 ──────────────────────────────────── */
+.ladder{background:var(--teal-l); border-radius:3.5mm; padding:4.5mm;}
+.paper .ldrow{display:flex; align-items:center; gap:2mm; flex-wrap:wrap; justify-content:center;}
+.paper .ldw{background:var(--navy); color:#fff; font-size:11pt; font-weight:800;
+       border-radius:2mm; padding:1.8mm 3.5mm;}
+.paper .ldp{background:#fff; border:1px solid var(--line); border-radius:2mm;
+       padding:1.8mm 3mm; font-size:10.5pt; font-weight:700; color:var(--navy);}
+.paper /* ── 개념 연결 카드 ─────────────────────────────────── */
+.bridge{display:flex; align-items:stretch; gap:3mm; justify-content:center;}
+.paper .brcard{flex:1; max-width:60mm; background:#F7FBFB; border:1.2px solid var(--line);
+          border-radius:3mm; padding:4mm; text-align:center;}
+.paper .brcard.hi{background:var(--navy); border-color:var(--navy);}
+.paper .brlab{font-size:8pt; font-weight:800; color:var(--teal-d); letter-spacing:.08em;}
+.paper .brcard.hi .brlab{color:#7FD9D0;}
+.paper .brbody{font-size:13pt; font-weight:800; color:var(--navy); margin-top:1.8mm;}
+.paper .brcard.hi .brbody{color:#fff;}
+.paper .brcard.hi .brbody b{color:#7FD9D0;}
+.paper .brto{display:flex; align-items:center; font-size:14pt; font-weight:900; color:var(--teal);}
+.paper /* ── 읽기 카드 ──────────────────────────────────────── */
+.readrow{display:flex; gap:3.5mm;}
+.paper .rdcard{flex:1; border:1.2px solid var(--line); border-radius:3mm; padding:4mm; text-align:center;}
+.paper .rdcard.bad{border-color:#F3C9BC; background:#FDF6F3;}
+.paper .rdq{font-size:14pt; font-weight:800; color:var(--navy);}
+.paper .rda{font-size:9pt; color:#4A6472; margin-top:2mm;}
+.paper /* ── 교환법칙 ───────────────────────────────────────── */
+.swaprow{display:flex; gap:3mm; align-items:stretch; justify-content:center;}
+.paper .swcard{flex:1; max-width:62mm; border:1.2px solid var(--line); border-radius:3mm;
+          padding:4mm; text-align:center;}
+.paper .swcard.hi{background:var(--teal-l); border-color:var(--teal);}
+.paper .swq{font-size:14pt; font-weight:800; color:var(--navy);}
+.paper .swa{font-size:8.5pt; color:var(--gray); margin-top:1.8mm;}
+.paper .swto{display:flex; align-items:center; font-size:15pt; color:var(--teal); font-weight:900;}
+.paper /* ── 수의 순서 데모 ─────────────────────────────────── */
+.seqdemo{display:flex; gap:2.5mm; justify-content:center;}
+.paper .seqdemo span{width:14mm; height:11mm; border:1.2px solid var(--line); border-radius:2mm;
+                display:flex; align-items:center; justify-content:center;
+                font-size:12pt; font-weight:700; color:var(--navy); background:#fff;}
+.paper .seqdemo .hi{background:var(--coral); border-color:var(--coral); color:#fff;}
+.paper /* ── 덧셈표 · 뺄셈표 ────────────────────────────────── */
+.atab{border-collapse:collapse; margin:0 auto;}
+.paper .atab th,.paper .atab td{width:33mm; height:30mm; text-align:center; border:1.2px solid var(--line);
+                     font-size:19pt; font-weight:700; color:var(--navy);}
+.paper .atab .corner{background:var(--navy); color:#fff; font-size:22pt;}
+.paper .atab tr:first-child th{background:var(--teal); color:#fff;}
+.paper .atab .rowh{background:var(--teal-l); color:var(--teal-d);}
+.paper .atab .tblank{background:#FBFDFD;}
+.paper /* ── □가 있는 식 (1학년) ────────────────────────────── */
+.eq1grid{align-content:space-around;}
+.paper .eq1{display:flex; align-items:center; gap:2mm; padding:1.5mm 3mm;}
+.paper .eq1q{font-size:15pt; font-weight:700; color:var(--navy);}
+.paper .sq1{display:inline-block; width:9mm; height:9mm; border:1.5px solid var(--coral);
+       border-radius:1.5mm; vertical-align:middle; margin:0 1.5mm;}
+.paper /* ── 수 가족 (1학년) ────────────────────────────────── */
+.nfgrid{align-content:space-around;}
+.paper .nfam{border:1.2px solid var(--line); border-radius:3mm; padding:4.5mm 5mm; margin:2mm;}
+.paper .nf-nums{display:flex; justify-content:center; gap:3mm; margin-bottom:2.5mm;}
+.paper .nf-nums span{width:11mm; height:11mm; border-radius:50%; background:var(--teal-l);
+                border:1.2px solid var(--teal); display:flex; align-items:center;
+                justify-content:center; font-size:12pt; font-weight:800; color:var(--navy);}
+.paper .nf-grid{display:grid; grid-template-columns:1fr 1fr; gap:2mm;}
+.paper .nf-item{font-size:13pt; font-weight:700; color:var(--navy); text-align:center;}
+.paper .nf-box{display:inline-block; width:10mm; height:7mm; border:1.2px solid #B9CBC9;
+          border-radius:1.2mm; vertical-align:middle; margin-left:1mm;}
+.paper /* ── 수의 순서 표 ───────────────────────────────────── */
+.stab{width:100%; border-collapse:collapse;}
+.paper .stab td{border:1px solid var(--line); height:15mm; text-align:center;
+           font-size:15pt; font-weight:700; color:var(--navy);}
+.paper .stab .sn{border:none; width:10mm; font-size:8pt; color:var(--gray); font-weight:400;}
+.paper .stab .sblank{background:#FBFDFD;}
