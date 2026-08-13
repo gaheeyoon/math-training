@@ -92,10 +92,10 @@ def read_js_payload(path, varname):
     return json.loads(m.group(1))
 
 
-def rebuild_data_only(admin_pass):
+def rebuild_data_only(admin_pass, one_code=None):
     """인증 코드를 그대로 유지한 채 학습 데이터만 다시 암호화합니다.
 
-    관리자 비밀번호로 코드 목록을 열고, 그중 하나로 콘텐츠 키를 되찾아
+    관리자 비밀번호(또는 --code 로 넘긴 인증 코드 하나)로 콘텐츠 키를 되찾아
     새 데이터를 같은 키로 암호화합니다. keys.js 와 adminvault.js 는 건드리지 않습니다.
     """
     vault_path = os.path.join(OUT, 'adminvault.js')
@@ -104,28 +104,40 @@ def rebuild_data_only(admin_pass):
         if not os.path.exists(path):
             sys.exit(f"{path} 가 없습니다. 먼저 코드를 발급해 주세요(--data-only 없이 실행).")
 
-    vault = read_js_payload(vault_path, 'ADMIN_VAULT')
-    try:
-        raw = AESGCM(derive(admin_pass, base64.b64decode(vault['salt']))) \
-            .decrypt(base64.b64decode(vault['iv']), base64.b64decode(vault['ct']), None)
-    except Exception:
-        sys.exit("관리자 비밀번호가 맞지 않습니다.")
-    codes = json.loads(raw.decode('utf-8'))
-
     auth = read_js_payload(keys_path, 'AUTH')
-    weeks = {w['i']: w for w in auth['weeks']}
-
     content_key = None
-    for c in codes:
-        w = weeks.get(c['i'])
-        if not w:
-            continue
+
+    if one_code:
+        # 인증 코드 하나만 알고 있을 때 — 모든 주차에 대해 맞춰 봅니다
+        for w in auth['weeks']:
+            try:
+                content_key = AESGCM(derive(normalize(one_code), base64.b64decode(w['salt']))) \
+                    .decrypt(base64.b64decode(w['iv']), base64.b64decode(w['ct']), None)
+                print(f"  {w['i']}주차 코드로 콘텐츠 키를 찾았습니다.")
+                break
+            except Exception:
+                continue
+        if content_key is None:
+            sys.exit("그 코드로는 콘텐츠 키를 찾지 못했습니다. 코드를 다시 확인해 주세요.")
+    else:
+        vault = read_js_payload(vault_path, 'ADMIN_VAULT')
         try:
-            content_key = AESGCM(derive(normalize(c['code']), base64.b64decode(w['salt']))) \
-                .decrypt(base64.b64decode(w['iv']), base64.b64decode(w['ct']), None)
-            break
+            raw = AESGCM(derive(admin_pass, base64.b64decode(vault['salt']))) \
+                .decrypt(base64.b64decode(vault['iv']), base64.b64decode(vault['ct']), None)
         except Exception:
-            continue
+            sys.exit("관리자 비밀번호가 맞지 않습니다.")
+        codes = json.loads(raw.decode('utf-8'))
+        weeks = {w['i']: w for w in auth['weeks']}
+        for c in codes:
+            w = weeks.get(c['i'])
+            if not w:
+                continue
+            try:
+                content_key = AESGCM(derive(normalize(c['code']), base64.b64decode(w['salt']))) \
+                    .decrypt(base64.b64decode(w['iv']), base64.b64decode(w['ct']), None)
+                break
+            except Exception:
+                continue
     if content_key is None:
         sys.exit("콘텐츠 키를 되찾지 못했습니다. keys.js 와 adminvault.js 가 짝이 맞는지 확인해 주세요.")
 
@@ -148,7 +160,8 @@ def rebuild_data_only(admin_pass):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('--admin-pass', required=True, help='관리자 페이지 비밀번호')
+    ap.add_argument('--admin-pass', help='관리자 페이지 비밀번호')
+    ap.add_argument('--code', help='--data-only 전용. 인증 코드 하나로 콘텐츠 키를 되찾습니다')
     ap.add_argument('--weeks', type=int, default=52, help='만들어 둘 주차 수 (기본 52주)')
     ap.add_argument('--start', default=None,
                     help='1주차 시작일 (YYYY-MM-DD, 월요일 권장). 생략하면 이번 주 월요일')
@@ -158,11 +171,13 @@ def main():
                     help='인증 코드는 그대로 두고 학습 데이터만 다시 암호화합니다')
     args = ap.parse_args()
 
-    if len(args.admin_pass) < 8:
-        sys.exit("관리자 비밀번호는 8자 이상으로 정해 주세요.")
-
     if args.data_only:
-        return rebuild_data_only(args.admin_pass)
+        if not args.admin_pass and not args.code:
+            sys.exit("--data-only 는 --admin-pass 또는 --code 중 하나가 필요합니다.")
+        return rebuild_data_only(args.admin_pass, args.code)
+
+    if not args.admin_pass or len(args.admin_pass) < 8:
+        sys.exit("관리자 비밀번호를 8자 이상으로 --admin-pass 에 넣어 주세요.")
 
     # ── 1주차 시작일 (월요일 기준) ──────────────────────────
     if args.start:

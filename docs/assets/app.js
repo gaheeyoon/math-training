@@ -354,6 +354,157 @@
              hint: '수의 순서에 맞게 빈칸을 채우세요.' };
   };
 
+  /* ═══ 1학년 2학기 유형 ═════════════════════════════════ */
+
+  /* 10칸 틀 — n칸 채우고 뒤에서 cross개를 지웁니다 */
+  function tframe(n, cross) {
+    var c = '';
+    for (var k = 0; k < 10; k++) {
+      var cls = 'tfc';
+      if (k < n) cls += (cross && k >= n - cross) ? ' tf-on tf-x' : ' tf-on';
+      c += '<span class="' + cls + '"></span>';
+    }
+    return '<span class="tframe">' + c + '</span>';
+  }
+
+  R.tens = function (sheet) {
+    var answers = [];
+    var html = sheet.items.map(function (it, i) {
+      var bars = '', dots = '', k;
+      for (k = 0; k < it.t; k++) bars += '<span class="tbar">10</span>';
+      for (k = 0; k < it.o; k++) dots += '<span class="tdot"></span>';
+      var pic = '<span class="tpic">' + bars + (it.o ? '<span class="tgap"></span>' : '') + dots + '</span>';
+      var q;
+      if (it.m === 'to') {
+        answers.push([String(it.t * 10 + it.o)]);
+        q = pic + '<span class="tarrow">→</span>' + inp('sm');
+      } else {
+        answers.push([String(it.t), String(it.o)]);
+        q = '<span class="tnum">' + (it.t * 10 + it.o) + '</span><span class="tarrow">→</span>' +
+            '<span class="tsplit">10개씩 묶음 ' + inp('xs') + '개 · 낱개 ' + inp('xs') + '개</span>';
+      }
+      return '<div class="q tens" data-i="' + i + '"><span class="no">' + circ(i) + '</span>' +
+        '<span class="mark"></span><div class="body">' + q + '</div></div>';
+    }).join('');
+    return { html: html, answers: answers, cols: 2,
+             hint: '10개씩 묶음과 낱개를 보고 빈칸을 채우세요.' };
+  };
+
+  R.vert = function (sheet) {
+    var answers = [];
+    var html = sheet.items.map(function (it, i) {
+      var a = it[0], op = it[1], b = it[2];
+      answers.push([String(op === '+' ? a + b : a - b)]);
+      var bt = b >= 10 ? String(Math.floor(b / 10)) : '';
+      return '<div class="q" data-i="' + i + '"><span class="no">' + circ(i) + '</span>' +
+        '<span class="mark"></span><div class="body"><div class="vwrap">' +
+        '<table class="v2"><tr class="vhdr"><td></td><td>십</td><td>일</td></tr>' +
+        '<tr><td class="vsign"></td><td>' + Math.floor(a / 10) + '</td><td>' + (a % 10) + '</td></tr>' +
+        '<tr class="vline"><td class="vsign">' + (op === '+' ? '+' : '−') + '</td>' +
+        '<td>' + bt + '</td><td>' + (b % 10) + '</td></tr></table>' +
+        inp('sm') + '</div></div></div>';
+    }).join('');
+    return { html: html, answers: answers, cols: 3,
+             hint: '자리를 맞추어 세로로 계산하세요.' };
+  };
+
+  function calc3(it) {
+    var m, r;
+    if (it.hi === 1) {
+      m = it.o2 === '+' ? it.b + it.c : it.b - it.c;
+      r = it.o1 === '+' ? it.a + m : it.a - m;
+    } else {
+      m = it.o1 === '+' ? it.a + it.b : it.a - it.b;
+      r = it.o2 === '+' ? m + it.c : m - it.c;
+    }
+    return [m, r];
+  }
+
+  R.three = function (sheet) {
+    var answers = [];
+    var html = sheet.items.map(function (it, i) {
+      answers.push([String(calc3(it)[1])]);
+      var o1 = it.o1 === '+' ? '+' : '−', o2 = it.o2 === '+' ? '+' : '−';
+      return '<div class="q" data-i="' + i + '"><span class="no">' + circ(i) + '</span>' +
+        '<div class="body"><span class="expr">' + it.a + '<span class="op">' + o1 + '</span>' +
+        it.b + '<span class="op">' + o2 + '</span>' + it.c + '<span class="op">=</span></span>' +
+        inp('sm') + '<span class="mark"></span></div></div>';
+    }).join('');
+    return { html: html, answers: answers, cols: 3, hint: sheet.hint };
+  };
+
+  R.chain = function (sheet) {
+    var answers = [];
+    var html = sheet.items.map(function (it, i) {
+      var v = calc3(it);
+      answers.push([String(v[0]), String(v[1])]);
+      var o1 = it.o1 === '+' ? '+' : '−', o2 = it.o2 === '+' ? '+' : '−';
+      var q, s1, s2;
+      if (it.hi === 1) {
+        q = it.a + ' ' + o1 + ' <u>' + it.b + ' ' + o2 + ' ' + it.c + '</u>';
+        s1 = it.b + ' ' + o2 + ' ' + it.c + ' = ';
+        s2 = it.a + ' ' + o1 + ' ① = ';
+      } else {
+        q = '<u>' + it.a + ' ' + o1 + ' ' + it.b + '</u> ' + o2 + ' ' + it.c;
+        s1 = it.a + ' ' + o1 + ' ' + it.b + ' = ';
+        s2 = '① ' + o2 + ' ' + it.c + ' = ';
+      }
+      return '<div class="q chain" data-i="' + i + '"><span class="no">' + circ(i) + '</span>' +
+        '<span class="mark"></span>' +
+        '<div class="chq">' + q + '</div>' +
+        '<div class="chstep"><b>①</b> ' + s1 + inp('xs') + '</div>' +
+        '<div class="chstep"><b>②</b> ' + s2 + inp('xs') + '</div></div>';
+    }).join('');
+    return { html: html, answers: answers, cols: 2, hint: sheet.hint };
+  };
+
+  R.tenframe = function (sheet) {
+    var answers = [];
+    var html = sheet.items.map(function (it, i) {
+      answers.push([String(10 - it.a)]);
+      var pic, q;
+      if (it.m === 'add') { pic = tframe(it.a, 0); q = it.a + ' + ' + inp('xs') + ' = 10'; }
+      else { pic = tframe(10, it.a); q = '10 − ' + it.a + ' = ' + inp('xs'); }
+      return '<div class="q tf" data-i="' + i + '"><span class="no">' + circ(i) + '</span>' +
+        '<span class="mark"></span><div class="body">' + pic +
+        '<span class="tfq">' + q + '</span></div></div>';
+    }).join('');
+    return { html: html, answers: answers, cols: 2,
+             hint: '틀을 보고 빈칸에 알맞은 수를 쓰세요.' };
+  };
+
+  R.frames = function (sheet) {
+    var answers = [];
+    var html = sheet.items.map(function (it, i) {
+      var need = 10 - it.a;
+      answers.push([String(need), String(it.b - need), String(it.a + it.b)]);
+      return '<div class="q frames" data-i="' + i + '"><span class="no">' + circ(i) + '</span>' +
+        '<span class="mark"></span>' +
+        '<div class="frq">' + it.a + ' + ' + it.b + '</div>' +
+        '<div class="frpic">' + tframe(it.a, 0) + '<span class="frplus">+</span>' + tframe(it.b, 0) + '</div>' +
+        '<div class="frstep"><b>①</b> ' + inp('xs') + ' <b>②</b> ' + inp('xs') +
+        ' <b>③</b> ' + inp('xs') + '</div></div>';
+    }).join('');
+    return { html: html, answers: answers, cols: 2,
+             hint: '앞의 틀을 먼저 10으로 채우세요. ① 채우는 데 필요한 수 · ② 남는 수 · ③ 답' };
+  };
+
+  R.bridge = function (sheet) {
+    var answers = [];
+    var html = sheet.items.map(function (it, i) {
+      var ones = it.a - 10;
+      answers.push([String(10 - it.b), String(it.a - it.b)]);
+      return '<div class="q bridge" data-i="' + i + '"><span class="no">' + circ(i) + '</span>' +
+        '<span class="mark"></span>' +
+        '<div class="brgq">' + it.a + ' − ' + it.b + '</div>' +
+        '<div class="brgsplit"><span class="brgt">10</span><span class="brgo">' + ones + '</span></div>' +
+        '<div class="chstep"><b>①</b> 10 − ' + it.b + ' = ' + inp('xs') + '</div>' +
+        '<div class="chstep"><b>②</b> ① + ' + ones + ' = ' + inp('xs') + '</div></div>';
+    }).join('');
+    return { html: html, answers: answers, cols: 2,
+             hint: '십몇을 10과 몇으로 가른 다음, 10에서 빼세요.' };
+  };
+
   /* ─────────────────────────────────────────────────────
      화면 1 — 학기 목록
      ───────────────────────────────────────────────────── */
@@ -584,7 +735,7 @@
               { label: 'DAY ' + day + ' · ' + key }]);
 
       var rend = R[sheet.type](sheet);
-      var n = sheet.items.length;
+      var n = rend.answers.length;
 
       app.innerHTML =
         '<div class="sheet-head">' +

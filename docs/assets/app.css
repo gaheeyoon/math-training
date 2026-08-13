@@ -515,8 +515,73 @@ body.locked .foot { border-top: none; background: transparent; }
 .bhint { font-size: 13.5px; color: var(--teal-d); background: var(--teal-l);
          border-radius: 8px; padding: 10px 14px; margin-bottom: 14px; line-height: 1.55; }
 
+/* ═════════════════════════════════════════════════════════
+   1학년 2학기 유형 (화면용)
+   ═════════════════════════════════════════════════════════ */
+
+/* 10개씩 묶음과 낱개 */
+.q.tens .body { justify-content: flex-start; gap: 10px; }
+.tpic { display: inline-flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+.tbar { width: 16px; height: 38px; border: 1.5px solid var(--teal); border-radius: 3px;
+        background: var(--teal-l); color: var(--teal-d); font-size: 9px; font-weight: 800;
+        display: inline-flex; align-items: flex-end; justify-content: center; padding-bottom: 2px; }
+.tdot { width: 12px; height: 12px; border-radius: 50%; background: var(--coral); display: inline-block; }
+.tgap { width: 8px; display: inline-block; }
+.tarrow { font-size: 17px; color: var(--teal); font-weight: 900; }
+.tnum { font-size: 26px; font-weight: 800; color: var(--navy); }
+.tsplit { font-size: 15px; font-weight: 700; color: var(--navy);
+          display: inline-flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+
+/* 세로셈 (두 자리) */
+.v2 { border-collapse: collapse; }
+.v2 td { width: 28px; height: 28px; text-align: center; font-size: 19px;
+         font-weight: 700; color: var(--navy); border: 1px dashed #DCE7E6; }
+.v2 .vhdr td { border: none; height: 14px; font-size: 9px; color: #A7BAC2; font-weight: 600; }
+.v2 .vsign { border: none; width: 20px; font-size: 17px; color: var(--teal-d); }
+.v2 .vline td { border-bottom: 2px solid var(--navy); }
+
+/* 세 수 이어 계산 */
+.q.chain, .q.bridge, .q.frames { flex-direction: column; align-items: flex-start; gap: 6px; }
+.chq { font-size: 21px; font-weight: 800; color: var(--navy); padding-top: 6px; }
+.chq u { text-decoration-color: var(--coral); text-underline-offset: 3px; }
+.chstep { font-size: 15px; font-weight: 600; color: #3D5866;
+          display: flex; align-items: center; gap: 6px; }
+.chstep b { color: var(--teal-d); }
+
+/* 십틀 */
+.tframe { display: inline-grid; grid-template-columns: repeat(5, 22px); grid-auto-rows: 22px;
+          border: 2px solid var(--navy); flex: none; }
+.tfc { border: .5px solid #C8D8D6; }
+.tfc.tf-on { background: var(--teal); }
+.tfc.tf-x { background: #EDF3F2;
+  background-image: linear-gradient(45deg, transparent 44%, #9BB2AF 44%, #9BB2AF 56%, transparent 56%),
+                    linear-gradient(-45deg, transparent 44%, #9BB2AF 44%, #9BB2AF 56%, transparent 56%); }
+.q.tf .body { justify-content: flex-start; gap: 12px; }
+.tfq { font-size: 20px; font-weight: 800; color: var(--navy);
+       display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+
+/* 십틀 두 개 (받아올림) */
+.frq { font-size: 21px; font-weight: 800; color: var(--navy); padding-top: 6px; }
+.frpic { display: flex; align-items: center; gap: 8px; }
+.frplus { font-size: 19px; font-weight: 900; color: var(--coral); }
+.frstep { display: flex; align-items: center; gap: 6px; font-size: 15px; font-weight: 700; }
+.frstep b { color: var(--teal-d); }
+
+/* 10에서 빼기 (받아내림) */
+.brgq { font-size: 21px; font-weight: 800; color: var(--navy); padding-top: 6px; }
+.brgsplit { display: flex; gap: 6px; }
+.brgt, .brgo { width: 42px; height: 32px; border-radius: 6px; display: flex;
+               align-items: center; justify-content: center; font-size: 18px; font-weight: 800; }
+.brgt { background: var(--navy); color: #fff; }
+.brgo { background: var(--teal-l); color: var(--navy); border: 1.5px solid var(--teal); }
+
 @media (max-width: 620px) {
   .atab th, .atab td { min-width: 52px; height: 50px; font-size: 16px; padding: 3px; }
   .stab td { height: 48px; font-size: 16px; }
   .nf-grid { grid-template-columns: 1fr; }
+  .tframe { grid-template-columns: repeat(5, 17px); grid-auto-rows: 17px; }
+  .tfq, .chq, .frq, .brgq { font-size: 18px; }
+  .tbar { width: 13px; height: 32px; }
+  .tdot { width: 10px; height: 10px; }
+  .q.tens .body { gap: 6px; }
 }

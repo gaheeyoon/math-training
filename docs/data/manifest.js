@@ -34,6 +34,14 @@ window.CURRICULUM = {
       status: 'ready'
     },
     {
+      id: '1-2', grade: 1, term: 2,
+      title: '1학년 2학기',
+      subtitle: '받아올림과 받아내림까지',
+      desc: '100까지의 수부터 □가 있는 식까지',
+      sheets: 200,          /* 10회차 × DAY 10 × A·B */
+      status: 'ready'
+    },
+    {
       id: '3-1', grade: 3, term: 1,
       title: '3학년 1학기',
       subtitle: '곱셈과 나눗셈',
